@@ -1,14 +1,88 @@
-/* Стили для переключателя языков */
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gladkovka Team | Официальный сайт</title>
+    <style>
+        /* Базовые стили и обнуление */
+        :root {
+            --color-primary: #1e1e1e; /* Темный фон */
+            --color-accent: #39FF14; /* Яркий Неоновый Зеленый (Логотип) */
+            --color-text: #ffffff; /* Белый текст */
+            --color-card: #282828; /* Фон карточек */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        /* ----------------------- Хедер (Навигация) ----------------------- */
+        header {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--color-accent);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--color-text);
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+            text-shadow: 0 0 10px var(--color-accent);
+        }
+        
+        /* Стили для переключателя языков */
         .language-switcher {
             display: flex;
-            gap: 5px; /* Расстояние между кнопками */
-            margin-left: 20px; /* Отступ от навигационных ссылок */
+            gap: 5px;
+            margin-left: 20px;
         }
 
         .language-switcher button {
-            background-color: var(--color-card); /* Темный фон кнопки */
-            color: var(--color-text); /* Белый текст */
-            border: 1px solid var(--color-accent); /* Неоновая граница */
+            background-color: var(--color-card);
+            color: var(--color-text);
+            border: 1px solid var(--color-accent);
             padding: 5px 10px;
             cursor: pointer;
             font-size: 0.9em;
@@ -18,7 +92,740 @@
 
         .language-switcher button:hover,
         .language-switcher button.active {
-            background-color: var(--color-accent); /* Неоновый фон при наведении/активности */
-            color: var(--color-primary); /* Темный текст на неоновом фоне */
+            background-color: var(--color-accent);
+            color: var(--color-primary);
             font-weight: bold;
         }
+
+        /* Общие стили секций */
+        section {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--color-accent);
+            text-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+            padding-bottom: 10px;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        /* ----------------------- Секция Состав ----------------------- */
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .player-card {
+            background-color: var(--color-card);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--color-accent);
+            cursor: pointer; /* Делаем карточку кликабельной */
+        }
+
+        .player-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(57, 255, 20, 0.3);
+        }
+
+        .player-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--color-accent);
+        }
+
+        .player-card h3 {
+            margin: 15px 0 5px;
+            font-size: 1.5em;
+            color: var(--color-accent);
+        }
+
+        .player-card p {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .player-card .role {
+            font-weight: bold;
+            color: var(--color-text);
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        /* ----------------------- МОДАЛЬНОЕ ОКНО ----------------------- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--color-card);
+            margin: 5% auto; 
+            padding: 30px;
+            border: 2px solid var(--color-accent);
+            width: 90%;
+            max-width: 900px;
+            border-radius: 10px;
+            animation: slideIn 0.5s;
+            display: flex;
+            gap: 30px;
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                flex-direction: column;
+                margin: 20px auto;
+            }
+            .modal-avatar-container {
+                flex: 0 0 auto;
+            }
+            .modal-avatar {
+                height: auto;
+            }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-avatar-container {
+            flex: 0 0 300px; 
+            text-align: center;
+        }
+        
+        .modal-avatar {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 4px solid var(--color-accent);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+        }
+        
+        .modal-info {
+            flex-grow: 1;
+        }
+
+        .modal-info h3 {
+            font-size: 2.5em;
+            color: var(--color-accent);
+            margin-bottom: 5px;
+        }
+
+        .modal-info .full-name {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        .modal-info .role-modal {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--color-text);
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--color-accent);
+            padding-bottom: 10px;
+        }
+
+        .modal-info .bio p {
+            margin-bottom: 15px;
+        }
+        
+        .bio-achievement {
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+        .bio-fact {
+            font-style: italic;
+        }
+
+        .close {
+            color: var(--color-accent);
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Стили для остальных секций (оставлены без изменений) */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), #1e1e1e; 
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-content img { max-width: 250px; margin-bottom: 20px; border-radius: 50%; border: 5px solid var(--color-accent); box-shadow: 0 0 25px var(--color-accent); }
+        .hero-content h1 { font-size: 4em; margin-bottom: 10px; color: var(--color-accent); text-shadow: 0 0 20px var(--color-accent); }
+        .hero-content p { font-size: 1.5em; font-weight: 300; }
+        #history { background-color: var(--color-card); }
+        .history-content { font-size: 1.1em; padding: 20px; border-left: 5px solid var(--color-accent); background-color: var(--color-primary); border-radius: 5px; }
+        .history-content strong { color: var(--color-accent); }
+        #coach .coach-card { text-align: center; background-color: var(--color-card); padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); border-top: 4px solid var(--color-accent); max-width: 300px; margin: 0 auto; }
+        #coach .coach-card img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid var(--color-accent); margin-bottom: 15px; }
+        #coach .coach-card h3 { font-size: 1.8em; color: var(--color-accent); margin-bottom: 5px; }
+        #coach .coach-card p { font-size: 1.1em; opacity: 0.9; }
+        #coach .coach-card .role { font-weight: bold; color: var(--color-text); font-size: 1.2em; margin-top: 10px; }
+        .achievement-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .achievement-list li { background-color: var(--color-card); padding: 20px; border-left: 5px solid var(--color-accent); border-radius: 5px; font-size: 1.1em; transition: background-color 0.3s; }
+        .achievement-list li strong { color: var(--color-accent); display: block; margin-bottom: 5px; }
+        #announcements { background-color: var(--color-card); }
+        .match-card { text-align: center; background-color: var(--color-primary); padding: 30px; border-radius: 10px; border: 2px solid var(--color-accent); box-shadow: 0 0 20px rgba(57, 255, 20, 0.4); }
+        .match-card h3 { font-size: 2em; color: var(--color-accent); margin-bottom: 10px; }
+        .match-card p { font-size: 1.2em; margin-bottom: 5px; }
+        .match-card .date { font-size: 1.5em; font-weight: bold; color: var(--color-text); margin-top: 15px; }
+        .match-card .players { margin-top: 10px; font-style: italic; opacity: 0.8; }
+        footer { background-color: #111; text-align: center; padding: 20px; border-top: 2px solid var(--color-accent); font-size: 0.9em; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-text">GLADKOVKA TEAM</div>
+            <div class="nav-container">
+                <div class="nav-links">
+                    <a href="#history" data-lang="history-link">История</a>
+                    <a href="#roster" data-lang="roster-link">Состав</a>
+                    <a href="#coach" data-lang="coach-link">Тренер</a>
+                    <a href="#achievements" data-lang="achievements-link">Достижения</a>
+                    <a href="#announcements" data-lang="announcements-link">Анонсы</a>
+                </div>
+                <div class="language-switcher" id="lang-switcher">
+                    <button onclick="switchLanguage('ru')" class="active">RU</button>
+                    <button onclick="switchLanguage('zk')">ZK</button>
+                    <button onclick="switchLanguage('en')">EN</button>
+                    <button onclick="switchLanguage('ua')">UA</button>
+                    <button onclick="switchLanguage('de')">DE</button>
+                    <button onclick="switchLanguage('ar')">AR</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <img src="image (4).jpg" alt="Логотип Gladkovka Team"> 
+            <h1 id="hero-title">GLADKOVKA TEAM</h1>
+            <p id="hero-text">
+                Киберспортивная организация, идущая к вершинам CS2.
+            </p>
+        </div>
+    </section>
+
+    <section id="history">
+        <h2 data-lang="history-title">Наша История</h2>
+        <div class="history-content">
+            <p id="history-text">
+                История Gladkovka Team началась в далеком 2003 году в г. Херсон. Основатель, Дмитрий "3eJIeHk1H" Зеленкин, увидел шанс на игровом турнире с призовым фондом в 10,000 гривен. 
+                Он собрал друзей из Гладковки: Kaban, M3t3l1k, C0cyh0v, M4m3d. Команда без названия, играя в Counter-Strike 1.6, с легкостью одолела тир-2 соперников, не проиграв ни одной карты. 
+                Победа дала имя: Gladkovka Team. Сегодня команда покоряет Counter-Strike 2, а зеленый цвет в логотипе — дань уважения и символ наследия основателя.
+            </p>
+        </div>
+    </section>
+
+    <section id="roster">
+        <h2 data-lang="roster-title">Актуальный Состав CS2</h2>
+        <div class="roster-grid">
+            
+            <div class="player-card" onclick="openModal('nopidorabeme')">
+                <img src="image_488730.jpg" alt="Фото Nopidorabeme">
+                <h3>Nopidorabeme</h3>
+                <p data-lang="player-fullname-nopidorabeme">Никита Жопынский</p>
+                <div class="role" data-lang="player-role-nopidorabeme">CAPTAIN</div>
+            </div>
+            <div class="player-card" onclick="openModal('ronik')">
+                <img src="image_487ce9.jpg" alt="Фото ronik">
+                <h3>ronik</h3>
+                <p data-lang="player-fullname-ronik">Станислав Кириченко</p>
+                <div class="role" data-lang="player-role-ronik">Rifler</div>
+            </div>
+            <div class="player-card" onclick="openModal('danich')">
+                <img src="IMG_20230620_123258_260.webp" alt="Фото danich">
+                <h3>danich</h3>
+                <p data-lang="player-fullname-danich">Даниил Станика</p>
+                <div class="role" data-lang="player-role-danich">Rifler</div>
+            </div>
+            <div class="player-card" onclick="openModal('kunimen')">
+                <img src="image_488389.png" alt="Фото kunimen">
+                <h3>kunimen</h3>
+                <p data-lang="player-fullname-kunimen">Егор Белявский</p>
+                <div class="role" data-lang="player-role-kunimen">Rifler</div>
+            </div>
+            <div class="player-card" onclick="openModal('valerapickingass')">
+                <img src="image_488389.png" alt="Фото valerapickingass">
+                <h3>valerapickingass</h3>
+                <p data-lang="player-fullname-valerapickingass">Валера Вжопековыряется</p>
+                <div class="role" data-lang="player-role-valerapickingass">AWP</div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="coach">
+        <h2 data-lang="coach-title">Наш Тренер</h2>
+        <div class="coach-card">
+            <img src="lominok.jpg" alt="Фото тренера Lominok">
+            <h3>Lominok</h3>
+            <p data-lang="coach-fullname">Станислав Петлюченко</p>
+            <div class="role" data-lang="coach-role">Тренер</div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 data-lang="achievements-title">Достижения</h2>
+        <ul class="achievement-list" id="achievements-list">
+            <li><strong>Local Kherson LAN 2024</strong>: <span data-lang="ach-1">1 место (CS2) - Легенда продолжается!</span></li>
+            <li><strong>ESL Major 2004</strong>: <span data-lang="ach-2">2 место (CS 1.6) - Первый международный успех.</span></li>
+            <li><strong>CyberClub Kherson LAN 2003</strong>: <span data-lang="ach-3">1 место (CS 1.6) - Доминирование на локальной сцене.</span></li>
+            <li><strong>Local HolaPrystan LAN 2003</strong>: <span data-lang="ach-4">1 место (CS 1.6) - Непобежденные в Херсонской области.</span></li>
+        </ul>
+    </section>
+
+    <section id="announcements">
+        <h2 data-lang="announcements-title">Предстоящие Игры</h2>
+        <div class="match-card">
+            <h3 data-lang="match-title">GoodGame 2x2 Wingman Tournament</h3>
+            <p data-lang="match-discipline">Дисциплина: Counter-Strike 2 (Wingman)</p>
+            <p class="players" data-lang="match-players">Участники: kunimen & ronik</p>
+            <p class="date" data-lang="match-date">12 Октября 2025</p>
+        </div>
+    </section>
+
+    <footer>
+        <p data-lang="footer-text">&copy; 2025 Gladkovka Team. All rights reserved. | Создано с любовью к киберспорту.</p>
+    </footer>
+
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-avatar-container">
+                <img id="modal-avatar-img" class="modal-avatar" src="" alt="Аватар игрока">
+            </div>
+            <div class="modal-info">
+                <h3 id="modal-nickname"></h3>
+                <p class="full-name" id="modal-fullname"></p>
+                <p class="role-modal" id="modal-role"></p>
+                <div class="bio" id="modal-bio"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================
+        // 1. КОНФИГУРАЦИЯ ДАННЫХ ИГРОКОВ (ОСТАВЛЕНО БЕЗ ИЗМЕНЕНИЙ)
+        // ВАЖНО: Модальное окно пока использует только RU-биографии.
+        // Чтобы переводить модальное окно, нужно добавить секции EN_bio, UA_bio и т.д.
+        // =========================================================
+        const playerData = {
+            'nopidorabeme': {
+                nickname: 'Nopidorabeme',
+                fullname: 'Никита Жопынский',
+                role: 'CAPTAIN',
+                image: 'image_488730.jpg',
+                bio: '<p>Никита — ветеран Gladkovka Team и лидер, который управляет экономикой и стратегией команды. Его хладнокровие в клатчах — залог успеха. Присоединился к команде, чтобы восстановить легенду. Его называют "мозгом" Gladkovka Team.</p>' +
+                     '<p class="bio-achievement">Обладатель кубка "Золотая ложка".</p>' +
+                     '<p class="bio-fact">Является сыном известного ученого/геолога/химика/физика/математика Эдуарда Жопынского. Эдуард также был киберспортсменом по игре Fortnite.</p>' +
+                     '<p>Никита известен своей хорошей игрой из оружия SSG-08 и Sheriff (в Valorant), но предпочитает роль Рифлера.</p>' +
+                     '<p class="bio-fact">Одновременно является профессиональным футболистом и играет в молодежной сборной "Баварии".</p>' +
+                     '<p>Основатель проекта Dinodrop. Заработано: 60,000$.</p>'
+            },
+            'ronik': {
+                nickname: 'ronik',
+                fullname: 'Станислав Кириченко',
+                role: 'Rifler',
+                image: 'image_487ce9.jpg',
+                bio: '<p>Станислав — один из самых агрессивных стрелков в команде. Обладает высоким уровнем индивидуального мастерства и невероятной реакцией. Готов принять любой бой. Его задача — пробивать защиту противника и создавать пространство для AWP.</p>' +
+                     '<p class="bio-achievement">Обладатель кубка "Золотое стоящее дерево".</p>' +
+                     '<p class="bio-fact">Талант, который играл на профессиональном уровне с пингом более 1000 и никогда не жаловался. После переезда в новую квартиру сразу вышел на тир-1 уровень.</p>' +
+                     '<p>Очень хороший игрок DOTA 2 (имеет 10200 MMR), но предпочитает свою карьеру именно в CS2.</p>' +
+                     '<p>Заработано: 148,880$.</p>'
+            },
+            'danich': {
+                nickname: 'danich',
+                fullname: 'Даниил Станика',
+                role: 'Rifler',
+                image: 'IMG_20230620_123258_260.webp',
+                bio: '<p>Даниил — очень серьезный и дисциплинированный игрок. Никогда не пошутит и не даст ложной информации в игре. Универсальный стрелок, способный закрыть любую позицию.</p>' +
+                     '<p class="bio-achievement">Обладатель кубка "Шоколадный Грыня".</p>' +
+                     '<p>Бывший киберспортсмен по игре Vimeworld.</p>' +
+                     '<p class="bio-fact">Известен как "сын голопристанского киберспорта". Имеет очень высокое ELO на Faceit.</p>' +
+                     '<p>Его стабильность позволяет команде полагаться на него в самых сложных ситуациях.</p>'
+            },
+            'kunimen': {
+                nickname: 'kunimen',
+                fullname: 'Егор Белявский',
+                role: 'Rifler',
+                image: 'image_488389.png',
+                bio: '<p>Егор — универсальный и хороший игрок во всех играх. Часто отвечает за контроль мида и неожиданные атаки. Его непредсказуемый стиль игры часто застает противников врасплох.</p>' +
+                     '<p class="bio-achievement">Выиграл кубок "Белое одеяло" по дисциплине Dota 2.</p>' +
+                     '<p>Имеет высокое ELO на Faceit. Бывший киберспортсмен по Dota 2.</p>' +
+                     '<p class="bio-fact">Ранее был игроком AWP в CS:GO.</p>'
+            },
+            'valerapickingass': {
+                nickname: 'valerapickingass',
+                fullname: 'Валерий Вжопековыряется',
+                role: 'AWP',
+                image: 'image_488389.png',
+                bio: '<p>Валерий — основной снайпер команды и Прородитель гладковского киберспорта.</p>' +
+                     '<p class="bio-fact">Является сыном бывшего игрока старого состава Gladkovka Team — "Виталик Метелык".</p>' +
+                     '<p>Его AWP — самое точное оружие в арсенале Gladkovka Team. Именно он закрывает длинные дистанции и сдерживает пуши противника, обеспечивая надежную защиту.</p>' +
+                     '<p>Легенда гладковской про-сцены и очень хороший игрок из AWP.</p>'
+            }
+        };
+
+        // 2. ФУНКЦИИ МОДАЛЬНОГО ОКНА (ОСТАВЛЕНО БЕЗ ИЗМЕНЕНИЙ)
+        const modal = document.getElementById('modal');
+        const modalNickname = document.getElementById('modal-nickname');
+        const modalFullname = document.getElementById('modal-fullname');
+        const modalRole = document.getElementById('modal-role');
+        const modalAvatarImg = document.getElementById('modal-avatar-img');
+        const modalBio = document.getElementById('modal-bio');
+
+        function openModal(playerId) {
+            const player = playerData[playerId];
+
+            if (player) {
+                // В модальном окне fullname и role пока берутся из RU-данных, чтобы не усложнять.
+                modalNickname.textContent = player.nickname;
+                modalFullname.textContent = player.fullname;
+                modalRole.textContent = player.role;
+                modalAvatarImg.src = player.image;
+                modalBio.innerHTML = player.bio; // RU-биография
+                
+                modal.style.display = 'flex'; 
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // =========================================================
+        // 3. КОНФИГУРАЦИЯ ПЕРЕВОДОВ
+        // =========================================================
+        const translations = {
+            // Русский (RU) - Базовый язык
+            'ru': {
+                // Навигация
+                'history-link': 'История',
+                'roster-link': 'Состав',
+                'coach-link': 'Тренер',
+                'achievements-link': 'Достижения',
+                'announcements-link': 'Анонсы',
+                // HERO
+                'hero-text': 'Киберспортивная организация, идущая к вершинам CS2.',
+                // ИСТОРИЯ
+                'history-title': 'Наша История',
+                'history-text': 'История Gladkovka Team началась в далеком 2003 году в г. Херсон. Основатель, Дмитрий "3eJIeHk1H" Зеленкин, увидел шанс на игровом турнире с призовым фондом в 10,000 гривен. Он собрал друзей из Гладковки: Kaban, M3t3l1k, C0cyh0v, M4m3d. Команда без названия, играя в Counter-Strike 1.6, с легкостью одолела тир-2 соперников, не проиграв ни одной карты. Победа дала имя: Gladkovka Team. Сегодня команда покоряет Counter-Strike 2, а зеленый цвет в логотипе — дань уважения и символ наследия основателя.',
+                // СОСТАВ
+                'roster-title': 'Актуальный Состав CS2',
+                'player-fullname-nopidorabeme': 'Никита Жопынский', 'player-role-nopidorabeme': 'CAPTAIN',
+                'player-fullname-ronik': 'Станислав Кириченко', 'player-role-ronik': 'Rifler',
+                'player-fullname-danich': 'Даниил Станика', 'player-role-danich': 'Rifler',
+                'player-fullname-kunimen': 'Егор Белявский', 'player-role-kunimen': 'Rifler',
+                'player-fullname-valerapickingass': 'Валера Вжопековыряется', 'player-role-valerapickingass': 'AWP',
+                // ТРЕНЕР
+                'coach-title': 'Наш Тренер',
+                'coach-fullname': 'Станислав Петлюченко',
+                'coach-role': 'Тренер',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'Достижения',
+                'ach-1': '1 место (CS2) - Легенда продолжается!',
+                'ach-2': '2 место (CS 1.6) - Первый международный успех.',
+                'ach-3': '1 место (CS 1.6) - Доминирование на локальной сцене.',
+                'ach-4': '1 место (CS 1.6) - Непобежденные в Херсонской области.',
+                // АНОНСЫ
+                'announcements-title': 'Предстоящие Игры',
+                'match-title': 'GoodGame 2x2 Wingman Tournament',
+                'match-discipline': 'Дисциплина: Counter-Strike 2 (Wingman)',
+                'match-players': 'Участники: kunimen & ronik',
+                'match-date': '12 Октября 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. All rights reserved. | Создано с любовью к киберспорту.'
+            },
+            // Закарпатский (ZK) - Неформальный перевод
+            'zk': {
+                // Навигация
+                'history-link': 'Наща Історія',
+                'roster-link': 'Склад',
+                'coach-link': 'Тренер',
+                'achievements-link': 'Награды',
+                'announcements-link': 'Анонси',
+                // HERO
+                'hero-text': 'Кіберспортивна файна-організація, що йде до верховини CS2.',
+                // ИСТОРИЯ
+                'history-title': 'Наща Історія',
+                'history-text': 'Історія Гладковки Тими почалася у 2003 році в Херсоні. Засновник, Дмитро "3eJIeHk1H" Зеленкін, уздрів шанс на турнірі з призовим 10,000 гривень. Він зібрав файних хлопців із Гладковки. Тімка без імені, граючи в 1.6, легко побила всіх. Перемога дала їй назву: Gladkovka Team. Тепер команда грає в CS2, а зелений колір — вдячність засновнику.',
+                // СОСТАВ
+                'roster-title': 'Актуальний Склад CS2',
+                'player-fullname-nopidorabeme': 'Нікіта Жопинский', 'player-role-nopidorabeme': 'КАПІТАН',
+                'player-fullname-ronik': 'Станіслав Кириченко', 'player-role-ronik': 'Ріфлер',
+                'player-fullname-danich': 'Данило Станіка', 'player-role-danich': 'Ріфлер',
+                'player-fullname-kunimen': 'Єгор Бєлявський', 'player-role-kunimen': 'Ріфлер',
+                'player-fullname-valerapickingass': 'Валера Вжопєковіряєтся', 'player-role-valerapickingass': 'АВП',
+                // ТРЕНЕР
+                'coach-title': 'Наш Тренер',
+                'coach-fullname': 'Станіслав Петлюченко',
+                'coach-role': 'Тренер',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'Награды',
+                'ach-1': '1-е місце (CS2) - Легенда триває!',
+                'ach-2': '2-е місце (CS 1.6) - Перший міждународний успіх.',
+                'ach-3': '1-е місце (CS 1.6) - Домінування на мєстній сцені.',
+                'ach-4': '1-е місце (CS 1.6) - Найкращі у Херсонській області.',
+                // АНОНСЫ
+                'announcements-title': 'Майбутні Ігри',
+                'match-title': 'GoodGame 2x2 Wingman Турнір',
+                'match-discipline': 'Дисципліна: Counter-Strike 2 (Wingman)',
+                'match-players': 'Учасники: kunimen & ronik',
+                'match-date': '12 Жовтня 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. Всі права захищено. | Зроблено з любов\'ю до кіберспорту.'
+            },
+            // Английский (EN)
+            'en': {
+                // Навигация
+                'history-link': 'History',
+                'roster-link': 'Roster',
+                'coach-link': 'Coach',
+                'achievements-link': 'Achievements',
+                'announcements-link': 'Announcements',
+                // HERO
+                'hero-text': 'An esports organization striving for the top of CS2.',
+                // ИСТОРИЯ
+                'history-title': 'Our History',
+                'history-text': 'The history of Gladkovka Team began back in 2003 in Kherson. The founder, Dmitry "3eJIeHk1H" Zelenkin, saw a chance at a gaming tournament with a prize pool of 10,000 UAH. He gathered friends from Gladkovka: Kaban, M3t3l1k, C0cyh0v, M4m3d. The nameless team, playing Counter-Strike 1.6, easily defeated tier-2 opponents, not losing a single map. The victory gave the name: Gladkovka Team. Today, the team conquers Counter-Strike 2, and the green color in the logo is a tribute and a symbol of the founder\'s legacy.',
+                // СОСТАВ
+                'roster-title': 'Current CS2 Roster',
+                'player-fullname-nopidorabeme': 'Nikita Zhopynsky', 'player-role-nopidorabeme': 'CAPTAIN',
+                'player-fullname-ronik': 'Stanislav Kyrychenko', 'player-role-ronik': 'Rifler',
+                'player-fullname-danich': 'Daniil Stanika', 'player-role-danich': 'Rifler',
+                'player-fullname-kunimen': 'Yegor Belyavsky', 'player-role-kunimen': 'Rifler',
+                'player-fullname-valerapickingass': 'Valera Vzhopekovyryaetsya', 'player-role-valerapickingass': 'AWP',
+                // ТРЕНЕР
+                'coach-title': 'Our Coach',
+                'coach-fullname': 'Stanislav Petlyuchenko',
+                'coach-role': 'Coach',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'Achievements',
+                'ach-1': '1st place (CS2) - The legend continues!',
+                'ach-2': '2nd place (CS 1.6) - First international success.',
+                'ach-3': '1st place (CS 1.6) - Dominance on the local scene.',
+                'ach-4': '1st place (CS 1.6) - Undefeated in the Kherson region.',
+                // АНОНСЫ
+                'announcements-title': 'Upcoming Matches',
+                'match-title': 'GoodGame 2x2 Wingman Tournament',
+                'match-discipline': 'Discipline: Counter-Strike 2 (Wingman)',
+                'match-players': 'Participants: kunimen & ronik',
+                'match-date': 'October 12, 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. All rights reserved. | Made with love for esports.'
+            },
+            // Украинский (UA)
+            'ua': {
+                // Навигация
+                'history-link': 'Історія',
+                'roster-link': 'Склад',
+                'coach-link': 'Тренер',
+                'achievements-link': 'Досягнення',
+                'announcements-link': 'Анонси',
+                // HERO
+                'hero-text': 'Кіберспортивна організація, що прямує до вершин CS2.',
+                // ИСТОРИЯ
+                'history-title': 'Наша Історія',
+                'history-text': 'Історія Gladkovka Team розпочалася у далекому 2003 році в м. Херсон. Засновник, Дмитро "3eJIeHk1H" Зеленкін, побачив шанс на ігровому турнірі з призовим фондом 10,000 гривень. Він зібрав друзів із Гладковки: Kaban, M3t3l1k, C0cyh0v, M4m3d. Команда без назви, граючи в Counter-Strike 1.6, з легкістю здолала тир-2 суперників, не програвши жодної карти. Перемога дала ім\'я: Gladkovka Team. Сьогодні команда підкорює Counter-Strike 2, а зелений колір у логотипі — данина поваги та символ спадщини засновника.',
+                // СОСТАВ
+                'roster-title': 'Актуальний Склад CS2',
+                'player-fullname-nopidorabeme': 'Микита Жопинський', 'player-role-nopidorabeme': 'КАПІТАН',
+                'player-fullname-ronik': 'Станіслав Кириченко', 'player-role-ronik': 'Ріфлер',
+                'player-fullname-danich': 'Данило Станіка', 'player-role-danich': 'Ріфлер',
+                'player-fullname-kunimen': 'Єгор Бєлявський', 'player-role-kunimen': 'Ріфлер',
+                'player-fullname-valerapickingass': 'Валера Вжопєковіряєтся', 'player-role-valerapickingass': 'АВП',
+                // ТРЕНЕР
+                'coach-title': 'Наш Тренер',
+                'coach-fullname': 'Станіслав Петлюченко',
+                'coach-role': 'Тренер',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'Досягнення',
+                'ach-1': '1 місце (CS2) - Легенда триває!',
+                'ach-2': '2 місце (CS 1.6) - Перший міжнародний успіх.',
+                'ach-3': '1 місце (CS 1.6) - Домінування на локальній сцені.',
+                'ach-4': '1 місце (CS 1.6) - Непереможні у Херсонській області.',
+                // АНОНСЫ
+                'announcements-title': 'Майбутні Ігри',
+                'match-title': 'GoodGame 2x2 Wingman Турнір',
+                'match-discipline': 'Дисципліна: Counter-Strike 2 (Wingman)',
+                'match-players': 'Учасники: kunimen & ronik',
+                'match-date': '12 Жовтня 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. Усі права захищено. | Створено з любов\'ю до кіберспорту.'
+            },
+            // Немецкий (DE)
+            'de': {
+                // Навигация
+                'history-link': 'Geschichte',
+                'roster-link': 'Kader',
+                'coach-link': 'Trainer',
+                'achievements-link': 'Erfolge',
+                'announcements-link': 'Ankündigungen',
+                // HERO
+                'hero-text': 'Eine E-Sport-Organisation, die an die Spitze von CS2 strebt.',
+                // ИСТОРИЯ
+                'history-title': 'Unsere Geschichte',
+                'history-text': 'Die Geschichte des Gladkovka Teams begann 2003 in Cherson. Der Gründer, Dmitry "3eJIeHk1H" Zelenkin, sah eine Chance bei einem Gaming-Turnier mit einem Preisgeld von 10.000 UAH. Er versammelte Freunde aus Gladkovka: Kaban, M3t3l1k, C0cyh0v, M4m3d. Das namenlose Team besiegte beim Spielen von Counter-Strike 1.6 problemlos Tier-2-Gegner, ohne eine einzige Karte zu verlieren. Der Sieg gab den Namen: Gladkovka Team. Heute erobert das Team Counter-Strike 2, und die grüne Farbe im Logo ist eine Hommage und ein Symbol für das Erbe des Gründers.',
+                // СОСТАВ
+                'roster-title': 'Aktueller CS2 Kader',
+                'player-fullname-nopidorabeme': 'Nikita Zhopynsky', 'player-role-nopidorabeme': 'CAPTAIN',
+                'player-fullname-ronik': 'Stanislav Kyrychenko', 'player-role-ronik': 'Rifler',
+                'player-fullname-danich': 'Daniil Stanika', 'player-role-danich': 'Rifler',
+                'player-fullname-kunimen': 'Yegor Belyavsky', 'player-role-kunimen': 'Rifler',
+                'player-fullname-valerapickingass': 'Valera Vzhopekovyryaetsya', 'player-role-valerapickingass': 'AWP',
+                // ТРЕНЕР
+                'coach-title': 'Unser Trainer',
+                'coach-fullname': 'Stanislav Petlyuchenko',
+                'coach-role': 'Trainer',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'Erfolge',
+                'ach-1': '1. Platz (CS2) - Die Legende lebt weiter!',
+                'ach-2': '2. Platz (CS 1.6) - Erster internationaler Erfolg.',
+                'ach-3': '1. Platz (CS 1.6) - Dominanz in der lokalen Szene.',
+                'ach-4': '1. Platz (CS 1.6) - Unbesiegt in der Region Cherson.',
+                // АНОНСЫ
+                'announcements-title': 'Bevorstehende Spiele',
+                'match-title': 'GoodGame 2x2 Wingman Turnier',
+                'match-discipline': 'Disziplin: Counter-Strike 2 (Wingman)',
+                'match-players': 'Teilnehmer: kunimen & ronik',
+                'match-date': '12. Oktober 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. Alle Rechte vorbehalten. | Mit Liebe zum E-Sport erstellt.'
+            },
+            // Арабский (AR)
+            'ar': {
+                // Навигация
+                'history-link': 'التاريخ',
+                'roster-link': 'التشكيلة',
+                'coach-link': 'المدرب',
+                'achievements-link': 'الإنجازات',
+                'announcements-link': 'الإعلانات',
+                // HERO
+                'hero-text': 'منظمة رياضات إلكترونية تسعى للوصول إلى قمة CS2.',
+                // ИСТОРИЯ
+                'history-title': 'تاريخنا',
+                'history-text': 'بدأ تاريخ فريق Gladkovka في عام 2003 بمدينة خيرسون. رأى المؤسس، ديمتري "3eJIeHk1H" زيلينكين، فرصة في بطولة ألعاب بجائزة قدرها 10,000 هريفنا. جمع أصدقاءه من غلادكوفكا. الفريق الذي لم يكن له اسم، وهو يلعب Counter-Strike 1.6، هزم بسهولة خصوم الفئة الثانية دون أن يخسر أي خريطة. النصر أعطاهم الاسم: Gladkovka Team. اليوم، يغزو الفريق Counter-Strike 2، واللون الأخضر في الشعار هو تقدير ورمز لتراث المؤسس.',
+                // СОСТАВ
+                'roster-title': 'تشكيلة CS2 الحالية',
+                'player-fullname-nopidorabeme': 'نيكيتا جوبينسكي', 'player-role-nopidorabeme': 'الكابتن',
+                'player-fullname-ronik': 'ستانيسلاف كيريتشينكو', 'player-role-ronik': 'الرماي',
+                'player-fullname-danich': 'دانييل ستانيكا', 'player-role-danich': 'الرماي',
+                'player-fullname-kunimen': 'ييغور بيليافسكي', 'player-role-kunimen': 'الرماي',
+                'player-fullname-valerapickingass': 'فاليرا فجوبيكوفيريايتسيا', 'player-role-valerapickingass': 'القناص',
+                // ТРЕНЕР
+                'coach-title': 'مدربنا',
+                'coach-fullname': 'ستانيسلاف بتليوتشينكو',
+                'coach-role': 'المدرب',
+                // ДОСТИЖЕНИЯ
+                'achievements-title': 'الإنجازات',
+                'ach-1': 'المركز الأول (CS2) - الأسطورة تستمر!',
+                'ach-2': 'المركز الثاني (CS 1.6) - أول نجاح دولي.',
+                'ach-3': 'المركز الأول (CS 1.6) - الهيمنة على الساحة المحلية.',
+                'ach-4': 'المركز الأول (CS 1.6) - لم يهزموا في منطقة خيرسون.',
+                // АНОНСЫ
+                'announcements-title': 'المباريات القادمة',
+                'match-title': 'بطولة GoodGame 2x2 Wingman',
+                'match-discipline': 'التخصص: Counter-Strike 2 (Wingman)',
+                'match-players': 'المشاركون: kunimen & ronik',
+                'match-date': '12 أكتوبر 2025',
+                // ФУТЕР
+                'footer-text': '&copy; 2025 Gladkovka Team. جميع الحقوق محفوظة. | صنع بحب للرياضات الإلكترونية.'
+            }
+        };
+
+        // 4. ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ
+        function switchLanguage(lang) {
+            const currentTranslations = translations[lang];
+
+            if (!currentTranslations) return;
+
+            // Обновление всех элементов с атрибутом data-lang
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (currentTranslations[key]) {
+                    element.textContent = currentTranslations[key];
+                }
+            });
+
+            // Обновление элементов по ID
+            document.getElementById('hero-text').textContent = currentTranslations['hero-text'];
+            document.getElementById('history-text').textContent = currentTranslations['history-text'];
+            document.getElementById('footer-text').innerHTML = currentTranslations['footer-text'];
+
+            // Обновление активной кнопки
+            document.querySelectorAll('.language-switcher button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.language-switcher button[onclick="switchLanguage('${lang}')"]`).classList.add('active');
+
+            // Обновление названия страницы
+            document.title = (lang === 'en' ? 'Gladkovka Team | Official site' : 'Gladkovka Team | Офіційний сайт');
+        }
+
+        // Запуск русского языка при загрузке (на всякий случай)
+        document.addEventListener('DOMContentLoaded', () => {
+             // Проверяем, если RU - это дефолтный язык (он в HTML), то не запускаем, чтобы избежать моргания.
+             // Если бы мы хотели, чтобы он всегда начинался с EN, мы бы вызвали switchLanguage('en');
+        });
+    </script>
+
+</body>
+</html>
