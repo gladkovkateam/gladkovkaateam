@@ -136,7 +136,6 @@
             transition: transform 0.3s, box-shadow 0.3s;
             border-top: 4px solid var(--color-accent);
             cursor: pointer;
-            /* Делаем карточку кликабельной */
         }
 
         .player-card:hover {
@@ -170,7 +169,7 @@
             margin-top: 5px;
         }
         
-        /* ----------------------- Секция Мерч (НОВЫЙ БЛОК СТИЛЕЙ) ----------------------- */
+        /* ----------------------- Секция Мерч ----------------------- */
         #merch {
             background-color: var(--color-primary);
         }
@@ -393,7 +392,7 @@
             }
         }
         
-        /* Стили для секции ИГРОКОВ */
+        /* Стили для секции ИГРОКОВ (ИСПРАВЛЕНЫ) */
         .modal-avatar-container {
             flex: 0 0 300px;
             text-align: center;
@@ -479,6 +478,7 @@
         .achievement-list li { background-color: var(--color-card); padding: 20px;
             border-left: 5px solid var(--color-accent); border-radius: 5px; font-size: 1.1em; transition: background-color 0.3s;
         }
+        /* ВАЖНО: для достижения мы хотим, чтобы текст "1st place" переводился, а название турнира оставалось неизменным */
         .achievement-list li strong { color: var(--color-accent); display: block; margin-bottom: 5px;
         }
         #announcements { background-color: var(--color-card); }
@@ -691,70 +691,191 @@
     </div>
 
     <script>
-        let currentLang = 'ru'; // Установим дефолтный язык
+        let currentLang = 'ru'; 
 
         // =========================================================
-        // 1. КОНФИГУРАЦИЯ ДАННЫХ ИГРОКОВ (ОСТАВЛЕНО БЕЗ ИЗМЕНЕНИЙ)
+        // 1. КОНФИГУРАЦИЯ ДАННЫХ ИГРОКОВ (Добавлены переводы био)
         // =========================================================
         const playerData = {
             'nopidorabeme': {
                 nickname: 'Nopidorabeme',
-                fullname: 'Никита Жопынский',
-                role: 'CAPTAIN',
                 image: 'image_488730.jpg',
-                bio: '<p>Никита — ветеран Gladkovka Team и лидер, который управляет экономикой и стратегией команды. Его хладнокровие в клатчах — залог успеха. Присоединился к команде, чтобы восстановить легенду. Его называют "мозгом" Gladkovka Team.</p>' +
-                     '<p class="bio-achievement">Обладатель кубка "Золотая ложка".</p>' +
-                     '<p class="bio-fact">Является сыном известного ученого/геолога/химика/физика/математика Эдуарда Жопынского. Эдуард также был киберспортсменом по игре Fortnite.</p>' +
-                     '<p>Никита известен своей хорошей игрой из оружия SSG-08 и Sheriff (в Valorant), но предпочитает роль Рифлера.</p>' +
-                     '<p class="bio-fact">Одновременно является профессиональным футболистом и играет в молодежной сборной "Баварии".</p>' +
-                     '<p>Основатель проекта Dinodrop. Заработано: 60,000$.</p>'
+                // Биографии для всех языков
+                bio: {
+                    ru: '<p>Никита — ветеран Gladkovka Team и лидер, который управляет экономикой и стратегией команды. Его хладнокровие в клатчах — залог успеха. Присоединился к команде, чтобы восстановить легенду. Его называют "мозгом" Gladkovka Team.</p>' +
+                        '<p class="bio-achievement">Обладатель кубка "Золотая ложка".</p>' +
+                        '<p class="bio-fact">Является сыном известного ученого/геолога/химика/физика/математика Эдуарда Жопынского. Эдуард также был киберспортсменом по игре Fortnite.</p>' +
+                        '<p>Никита известен своей хорошей игрой из оружия SSG-08 и Sheriff (в Valorant), но предпочитает роль Рифлера.</p>' +
+                        '<p class="bio-fact">Одновременно является профессиональным футболистом и играет в молодежной сборной "Баварии".</p>' +
+                        '<p>Основатель проекта Dinodrop. Заработано: 60,000$.</p>',
+                    en: '<p>Nikita is a veteran of Gladkovka Team and a leader who manages the team\'s economy and strategy. His composure in clutches is the key to success. He joined the team to restore the legend. He is called the "brain" of Gladkovka Team.</p>' +
+                        '<p class="bio-achievement">Winner of the "Golden Spoon" cup.</p>' +
+                        '<p class="bio-fact">He is the son of the famous scientist/geologist/chemist/physicist/mathematician Eduard Zhopynsky. Eduard was also an esports player for Fortnite.</p>' +
+                        '<p>Nikita is known for his good play with the SSG-08 and Sheriff (in Valorant), but prefers the role of Rifler.</p>' +
+                        '<p class="bio-fact">He is also a professional football player and plays for the "Bayern" youth team.</p>' +
+                        '<p>Founder of the Dinodrop project. Earned: $60,000.</p>',
+                    ua: '<p>Микита — ветеран Gladkovka Team та лідер, який керує економікою та стратегією команди. Його холоднокровність у клатчах — запорука успіху. Приєднався до команди, щоб відновити легенду. Його називають "мозком" Gladkovka Team.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Золота ложка".</p>' +
+                        '<p class="bio-fact">Є сином відомого вченого Едуарда Жопинського. Едуард також був кіберспортсменом по грі Fortnite.</p>' +
+                        '<p>Микита відомий своєю гарною грою зі зброї SSG-08 та Sheriff (у Valorant), але віддає перевагу ролі Ріфлера.</p>' +
+                        '<p class="bio-fact">Одночасно є професійним футболістом та грає у молодіжній збірній "Баварії".</p>' +
+                        '<p>Засновник проекту Dinodrop. Зароблено: 60,000$.</p>',
+                    zk: '<p>Нікіта — ветеран Гладковки Тими і лідер, який кермує економіков та стратегійов. Його холодна голова у клатчах — ключ до успіху. Прийшов, щоб восстановити легенду. Його називають "мозгом" Тими.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Золота ложка".</p>' +
+                        '<p class="bio-fact">Є сином знаного вченого Едуарда Жопинського. Едуард также був кіберспортсменом по Fortnite.</p>' +
+                        '<p>Нікіта файно грає з SSG-08 та Sheriff, але він Ріфлер.</p>' +
+                        '<p class="bio-fact">Одночасно є професійним футболістом та грає в "Баварії".</p>' +
+                        '<p>Засновник Dinodrop. Зароблено: 60,000$.</p>',
+                    de: '<p>Nikita ist ein Veteran des Gladkovka Teams und ein Anführer, der die Ökonomie und Strategie des Teams verwaltet. Seine Gelassenheit in Clutches ist der Schlüssel zum Erfolg. Er trat dem Team bei, um die Legende wiederherzustellen. Er wird das "Gehirn" des Gladkovka Teams genannt.</p>' +
+                        '<p class="bio-achievement">Gewinner des "Goldener Löffel" Pokals.</p>' +
+                        '<p class="bio-fact">Er ist der Sohn des berühmten Wissenschaftlers Eduard Zhopynsky. Eduard war auch ein Fortnite-E-Sportler.</p>' +
+                        '<p>Nikita ist bekannt für sein gutes Spiel mit SSG-08 und Sheriff, zieht aber die Rolle des Riflers vor.</p>' +
+                        '<p class="bio-fact">Er ist gleichzeitig Profifußballer und spielt in der Jugendauswahl von "Bayern".</p>' +
+                        '<p>Gründer des Dinodrop-Projekts. Verdient: 60.000$.</p>',
+                    ar: '<p>نيكيتا هو أحد قدامى Gladkovka Team وقائد يدير اقتصاد واستراتيجية الفريق. هدوؤه في المواقف الصعبة هو مفتاح النجاح. انضم إلى الفريق لاستعادة الأسطورة. يطلق عليه "عقل" فريق Gladkovka.</p>' +
+                        '<p class="bio-achievement">الفائز بكأس "الملعقة الذهبية".</p>' +
+                        '<p class="bio-fact">هو ابن العالم الشهير إدوارد جوبينسكي. إدوارد كان أيضًا لاعب رياضة إلكترونية للعبة فورتنايت.</p>' +
+                        '<p>نيكيتا معروف بلعبه الجيد بسلاحي SSG-08 و Sheriff (في فالورانت)، لكنه يفضل دور المهاجم (Rifler).</p>' +
+                        '<p class="bio-fact">هو في الوقت نفسه لاعب كرة قدم محترف ويلعب في فريق الشباب "بايرن".</p>' +
+                        '<p>مؤسس مشروع Dinodrop. الأرباح: 60,000 دولار.</p>'
+                }
             },
             'ronik': {
                 nickname: 'ronik',
-                fullname: 'Станислав Кириченко',
-                role: 'Rifler',
                 image: 'image_487ce9.jpg',
-                bio: '<p>Станислав — один из самых агрессивных стрелков в команде. Обладает высоким уровнем индивидуального мастерства и невероятной реакцией. Готов принять любой бой. Его задача — пробивать защиту противника и создавать пространство для AWP.</p>' +
-                     '<p class="bio-achievement">Обладатель кубка "Золотое стоящее дерево".</p>' +
-                     '<p class="bio-fact">Талант, который играл на профессиональном уровне с пингом более 1000 и никогда не жаловался. После переезда в новую квартиру сразу вышел на тир-1 уровень.</p>' +
-                     '<p>Очень хороший игрок DOTA 2 (имеет 10200 MMR), но предпочитает свою карьеру именно в CS2.</p>' +
-                     '<p>Заработано: 148,880$.</p>'
+                bio: {
+                    ru: '<p>Станислав — один из самых агрессивных стрелков в команде. Обладает высоким уровнем индивидуального мастерства и невероятной реакцией. Готов принять любой бой. Его задача — пробивать защиту противника и создавать пространство для AWP.</p>' +
+                        '<p class="bio-achievement">Обладатель кубка "Золотое стоящее дерево".</p>' +
+                        '<p class="bio-fact">Талант, который играл на профессиональном уровне с пингом более 1000 и никогда не жаловался. После переезда в новую квартиру сразу вышел на тир-1 уровень.</p>' +
+                        '<p>Очень хороший игрок DOTA 2 (имеет 10200 MMR), но предпочитает свою карьеру именно в CS2.</p>' +
+                        '<p>Заработано: 148,880$.</p>',
+                    en: '<p>Stanislav is one of the most aggressive shooters on the team. He has a high level of individual skill and incredible reaction. Ready to take any fight. His task is to break through the opponent\'s defense and create space for the AWP.</p>' +
+                        '<p class="bio-achievement">Winner of the "Golden Standing Tree" cup.</p>' +
+                        '<p class="bio-fact">A talent who played professionally with a ping over 1000 and never complained. After moving to a new apartment, he immediately reached the tier-1 level.</p>' +
+                        '<p>A very good DOTA 2 player (has 10200 MMR), but prefers his career in CS2.</p>' +
+                        '<p>Earned: $148,880.</p>',
+                    ua: '<p>Станіслав — один з найбільш агресивних стрільців у команді. Володіє високим рівнем індивідуальної майстерності та неймовірною реакцією. Готовий прийняти будь-який бій. Його завдання — пробивати захист противника та створювати простір для AWP.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Золоте стояче дерево".</p>' +
+                        '<p class="bio-fact">Талант, який грав професійно з пінгом понад 1000 та ніколи не скаржився. Після переїзду до нової квартири одразу вийшов на тир-1 рівень.</p>' +
+                        '<p>Дуже хороший гравець DOTA 2 (має 10200 MMR), але віддає перевагу своїй кар\'єрі саме у CS2.</p>' +
+                        '<p>Зароблено: 148,880$.</p>',
+                    zk: '<p>Станіслав — один з найбільш агресивних стрільців. Має високий рівень індивідуальної майстерності. Готов прийняти любий бій. Його робота — пробивати оборону та робити простір для АВП.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Золоте стояче дерево".</p>' +
+                        '<p class="bio-fact">Талант, який грав професійно з пінгом понад 1000 і не скаржився. Після переїзду одразу вийшов на тир-1.</p>' +
+                        '<p>Дуже файний гравець DOTA 2 (10200 MMR), але краще грає в CS2.</p>' +
+                        '<p>Зароблено: 148,880$.</p>',
+                    de: '<p>Stanislav ist einer der aggressivsten Schützen im Team. Er verfügt über ein hohes Maß an individuellem Können und unglaubliche Reaktion. Bereit, jeden Kampf anzunehmen. Seine Aufgabe ist es, die Verteidigung des Gegners zu durchbrechen und Raum für das AWP zu schaffen.</p>' +
+                        '<p class="bio-achievement">Gewinner des "Goldener Stehender Baum" Pokals.</p>' +
+                        '<p class="bio-fact">Ein Talent, das professionell mit einem Ping über 1000 spielte und sich nie beschwerte. Nach dem Umzug in eine neue Wohnung erreichte er sofort das Tier-1-Niveau.</p>' +
+                        '<p>Ein sehr guter DOTA 2 Spieler (hat 10200 MMR), aber zieht seine Karriere in CS2 vor.</p>' +
+                        '<p>Verdient: 148.880$.</p>',
+                    ar: '<p>ستانيسلاف هو أحد أكثر المهاجمين شراسة في الفريق. يتمتع بمستوى عالٍ من المهارة الفردية ورد فعل لا يصدق. مستعد لخوض أي معركة. مهمته هي اختراق دفاع الخصم وتوفير مساحة للقناص (AWP).</p>' +
+                        '<p class="bio-achievement">الفائز بكأس "الشجرة الذهبية الواقفة".</p>' +
+                        '<p class="bio-fact">موهبة لعبت باحتراف بـ "بينج" يزيد عن 1000 ولم تشتكِ أبدًا. بعد الانتقال إلى شقة جديدة، وصل على الفور إلى مستوى النخبة.</p>' +
+                        '<p>لاعب DOTA 2 جيد جدًا (لديه 10200 MMR)، لكنه يفضل مسيرته المهنية في CS2.</p>' +
+                        '<p>الأرباح: 148,880 دولار.</p>'
+                }
             },
             'danich': {
                 nickname: 'danich',
-                fullname: 'Даниил Станика',
-                role: 'Rifler',
                 image: 'IMG_20230620_123258_260.webp',
-                bio: '<p>Даниил — очень серьезный и дисциплинированный игрок. Никогда не пошутит и не даст ложной информации в игре. Универсальный стрелок, способный закрыть любую позицию.</p>' +
-                     '<p class="bio-achievement">Обладатель кубка "Шоколадный Грыня".</p>' +
-                     '<p>Бывший киберспортсмен по игре Vimeworld.</p>' +
-                     '<p class="bio-fact">Известен как "сын голопристанского киберспорта". Имеет очень высокое ELO на Faceit.</p>' +
-                     '<p>Его стабильность позволяет команде полагаться на него в самых сложных ситуациях.</p>'
+                bio: {
+                    ru: '<p>Даниил — очень серьезный и дисциплинированный игрок. Никогда не пошутит и не даст ложной информации в игре. Универсальный стрелок, способный закрыть любую позицию.</p>' +
+                        '<p class="bio-achievement">Обладатель кубка "Шоколадный Грыня".</p>' +
+                        '<p>Бывший киберспортсмен по игре Vimeworld.</p>' +
+                        '<p class="bio-fact">Известен как "сын голопристанского киберспорта". Имеет очень высокое ELO на Faceit.</p>' +
+                        '<p>Его стабильность позволяет команде полагаться на него в самых сложных ситуациях.</p>',
+                    en: '<p>Daniil is a very serious and disciplined player. He never jokes and never gives false information in the game. A versatile shooter capable of covering any position.</p>' +
+                        '<p class="bio-achievement">Winner of the "Chocolate Hrynia" cup.</p>' +
+                        '<p>Former esports player for Vimeworld.</p>' +
+                        '<p class="bio-fact">Known as the "son of Hola Prystan esports". Has very high ELO on Faceit.</p>' +
+                        '<p>His stability allows the team to rely on him in the most difficult situations.</p>',
+                    ua: '<p>Данило — дуже серйозний та дисциплінований гравець. Ніколи не пожартує і не дасть хибної інформації у грі. Універсальний стрілець, здатний закрити будь-яку позицію.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Шоколадний Гриня".</p>' +
+                        '<p>Колишній кіберспортсмен по грі Vimeworld.</p>' +
+                        '<p class="bio-fact">Відомий як "син голопристанського кіберспорту". Має дуже високе ELO на Faceit.</p>' +
+                        '<p>Його стабільність дозволяє команді покладатися на нього у найскладніших ситуаціях.</p>',
+                    zk: '<p>Данило — серйозний та дисциплінований гравець. Ніколи не жартує і не дає хибної інфи. Універсальний стрілець.</p>' +
+                        '<p class="bio-achievement">Володар кубка "Шоколадний Гриня".</p>' +
+                        '<p>Колишній кіберспортсмен по Vimeworld.</p>' +
+                        '<p class="bio-fact">Відомий як "син голопристанського кіберспорту". Має дуже високе ELO на Faceit.</p>' +
+                        '<p>На його стабільність команда може покластися у любих ситуаціях.</p>',
+                    de: '<p>Daniil ist ein sehr ernster und disziplinierter Spieler. Er macht nie Witze und gibt nie falsche Informationen im Spiel. Ein vielseitiger Schütze, der jede Position abdecken kann.</p>' +
+                        '<p class="bio-achievement">Gewinner des "Schokoladen Hrynia" Pokals.</p>' +
+                        '<p>Ehemaliger E-Sportler für Vimeworld.</p>' +
+                        '<p class="bio-fact">Bekannt als der "Sohn des Hola Prystan eSports". Hat sehr hohes ELO auf Faceit.</p>' +
+                        '<p>Seine Stabilität ermöglicht es dem Team, sich in den schwierigsten Situationen auf ihn zu verlassen.</p>',
+                    ar: '<p>دانييل هو لاعب جاد ومنضبط للغاية. لا يمزح أبدًا ولا يقدم معلومات خاطئة في اللعبة. مهاجم متعدد الاستخدامات قادر على تغطية أي موقع.</p>' +
+                        '<p class="bio-achievement">الفائز بكأس "هرينا الشوكولاتة".</p>' +
+                        '<p>لاعب رياضة إلكترونية سابق للعبة Vimeworld.</p>' +
+                        '<p class="bio-fact">يُعرف باسم "ابن الرياضات الإلكترونية في هولا بريستان". لديه تقييم ELO عالٍ جدًا على Faceit.</p>' +
+                        '<p>استقراره يسمح للفريق بالاعتماد عليه في أصعب المواقف.</p>'
+                }
             },
             'kunimen': {
                 nickname: 'kunimen',
-                fullname: 'Егор Белявский',
-                role: 'Rifler',
                 image: 'image_488389.png',
-                bio: '<p>Егор — универсальный и хороший игрок во всех играх. Часто отвечает за контроль мида и неожиданные атаки. Его непредсказуемый стиль игры часто застает противников врасплох.</p>' +
-                     '<p class="bio-achievement">Выиграл кубок "Белое одеяло" по дисциплине Dota 2.</p>' +
-                     '<p>Имеет высокое ELO на Faceit. Бывший киберспортсмен по Dota 2.</p>' +
-                     '<p class="bio-fact">Ранее был игроком AWP в CS:GO.</p>'
+                bio: {
+                    ru: '<p>Егор — универсальный и хороший игрок во всех играх. Часто отвечает за контроль мида и неожиданные атаки. Его непредсказуемый стиль игры часто застает противников врасплох.</p>' +
+                        '<p class="bio-achievement">Выиграл кубок "Белое одеяло" по дисциплине Dota 2.</p>' +
+                        '<p>Имеет высокое ELO на Faceit. Бывший киберспортсмен по Dota 2.</p>' +
+                        '<p class="bio-fact">Ранее был игроком AWP в CS:GO.</p>',
+                    en: '<p>Yegor is a versatile and good player in all games. Often responsible for mid-control and unexpected attacks. His unpredictable play style often catches opponents off guard.</p>' +
+                        '<p class="bio-achievement">Won the "White Blanket" cup in the Dota 2 discipline.</p>' +
+                        '<p>Has high ELO on Faceit. Former esports player for Dota 2.</p>' +
+                        '<p class="bio-fact">Previously was an AWP player in CS:GO.</p>',
+                    ua: '<p>Єгор — універсальний і гарний гравець у всіх іграх. Часто відповідає за контроль мідла та несподівані атаки. Його непередбачуваний стиль гри часто застає противників зненацька.</p>' +
+                        '<p class="bio-achievement">Виграв кубок "Біла ковдра" у дисципліні Dota 2.</p>' +
+                        '<p>Має високе ELO на Faceit. Колишній кіберспортсмен по Dota 2.</p>' +
+                        '<p class="bio-fact">Раніше був гравцем AWP у CS:GO.</p>',
+                    zk: '<p>Єгор — універсальний і файно грає в усіх іграх. Часто контролює мідл та робить несподівані атаки. Його стиль гри лякає ворогів.</p>' +
+                        '<p class="bio-achievement">Виграв кубок "Біла ковдра" по Dota 2.</p>' +
+                        '<p>Має високе ELO на Faceit. Колишній кіберспортсмен по Dota 2.</p>' +
+                        '<p class="bio-fact">Раніше був снайпером в CS:GO.</p>',
+                    de: '<p>Yegor ist ein vielseitiger und guter Spieler in allen Spielen. Oft verantwortlich für die Kontrolle der Mitte und unerwartete Angriffe. Sein unvorhersehbarer Spielstil überrascht die Gegner oft.</p>' +
+                        '<p class="bio-achievement">Gewann den "Weiße Decke" Pokal in der Disziplin Dota 2.</p>' +
+                        '<p>Hat hohes ELO auf Faceit. Ehemaliger E-Sportler für Dota 2.</p>' +
+                        '<p class="bio-fact">War früher ein AWP-Spieler in CS:GO.</p>',
+                    ar: '<p>ييغور هو لاعب متعدد الاستخدامات وجيد في جميع الألعاب. غالبًا ما يكون مسؤولاً عن التحكم في المنتصف والهجمات غير المتوقعة. أسلوبه غير المتوقع في اللعب غالبًا ما يفاجئ الخصوم.</p>' +
+                        '<p class="bio-achievement">فاز بكأس "البطانية البيضاء" في لعبة Dota 2.</p>' +
+                        '<p>لديه تقييم ELO عالٍ على Faceit. لاعب رياضة إلكترونية سابق للعبة Dota 2.</p>' +
+                        '<p class="bio-fact">كان في السابق لاعب AWP في CS:GO.</p>'
+                }
             },
             'valerapickingass': {
                 nickname: 'valerapickingass',
-                fullname: 'Валерий Вжопековыряется',
-                role: 'AWP',
                 image: 'image_488389.png',
-                bio: '<p>Валерий — основной снайпер команды и Прородитель гладковского киберспорта.</p>' +
-                     '<p class="bio-fact">Является сыном бывшего игрока старого состава Gladkovka Team — "Виталик Метелык".</p>' +
-                     '<p>Его AWP — самое точное оружие в арсенале Gladkovka Team. Именно он закрывает длинные дистанции и сдерживает пуши противника, обеспечивая надежную защиту.</p>' +
-                     '<p>Легенда гладковской про-сцены и очень хороший игрок из AWP.</p>'
+                bio: {
+                    ru: '<p>Валерий — основной снайпер команды и Прородитель гладковского киберспорта.</p>' +
+                        '<p class="bio-fact">Является сыном бывшего игрока старого состава Gladkovka Team — "Виталик Метелык".</p>' +
+                        '<p>Его AWP — самое точное оружие в арсенале Gladkovka Team. Именно он закрывает длинные дистанции и сдерживает пуши противника, обеспечивая надежную защиту.</p>' +
+                        '<p>Легенда гладковской про-сцены и очень хороший игрок из AWP.</p>',
+                    en: '<p>Valery is the team\'s main sniper and the Progenitor of Gladkovka esports.</p>' +
+                        '<p class="bio-fact">He is the son of a former player of the old Gladkovka Team roster - "Vitalik Metelyk".</p>' +
+                        '<p>His AWP is the most accurate weapon in the Gladkovka Team\'s arsenal. He covers long distances and holds off enemy pushes, providing reliable defense.</p>' +
+                        '<p>A legend of the Gladkovka pro-scene and a very good AWP player.</p>',
+                    ua: '<p>Валерій — основний снайпер команди та Прабатько гладковського кіберспорту.</p>' +
+                        '<p class="bio-fact">Є сином колишнього гравця старого складу Gladkovka Team — "Віталік Метелык".</p>' +
+                        '<p>Його AWP — найточніша зброя в арсеналі Gladkovka Team. Саме він закриває довгі дистанції та стримує пуші противника, забезпечуючи надійний захист.</p>' +
+                        '<p>Легенда гладковської про-сцени та дуже хороший гравець з AWP.</p>',
+                    zk: '<p>Валерій — основний снайпер і Прабатько гладковського кіберспорту.</p>' +
+                        '<p class="bio-fact">Є сином колишнього гравця старого складу — "Віталік Метелык".</p>' +
+                        '<p>Його AWP — найточніша зброя. Він закриває довгі дистанції та стримує пуші, роблячи надійний захист.</p>' +
+                        '<p>Легенда гладковської сцени і файно грає з AWP.</p>',
+                    de: '<p>Valery ist der Haupt-Scharfschütze des Teams und der Stammvater des Gladkovka eSports.</p>' +
+                        '<p class="bio-fact">Er ist der Sohn eines ehemaligen Spielers des alten Gladkovka Team Kaders - "Vitalik Metelyk".</p>' +
+                        '<p>Sein AWP ist die präziseste Waffe im Arsenal des Gladkovka Teams. Er deckt lange Distanzen ab und hält feindliche Angriffe zurück, um eine zuverlässige Verteidigung zu gewährleisten.</p>' +
+                        '<p>Eine Legende der Gladkovka Pro-Szene und ein sehr guter AWP-Spieler.</p>',
+                    ar: '<p>فاليري هو القناص الرئيسي للفريق ومؤسس الرياضات الإلكترونية في غلادكوفكا.</p>' +
+                        '<p class="bio-fact">هو ابن لاعب سابق في التشكيلة القديمة لفريق Gladkovka - "فيتاليك ميتيليك".</p>' +
+                        '<p>بندقية AWP الخاصة به هي السلاح الأكثر دقة في ترسانة Gladkovka Team. إنه يغطي المسافات الطويلة ويصد هجمات العدو، موفرًا دفاعًا موثوقًا.</p>' +
+                        '<p>أسطورة مشهد غلادكوفكا الاحترافي ولاعب AWP جيد جدًا.</p>'
+                }
             }
         };
 
         // =========================================================
-        // 2. ДАННЫЕ МЕРЧА (НОВЫЙ БЛОК)
+        // 2. ДАННЫЕ МЕРЧА
         // =========================================================
         const merchData = {
             'jersey': {
@@ -779,7 +900,7 @@
                 image: 'gladrick.jpg',
                 description_ru: 'Эксклюзивная коллекция. Ультра-дорогие кроссовки с автографами игроков и скрытым чипом для +10 к AWP. Количество ограничено! Сделаны из переработанных материалов.',
                 sizes: ['38', '39', '40', '41', '42', '43', '44', '45'],
-                isSoldOut: true // Установлено "РАСПРОДАНО"
+                isSoldOut: true
             }
         };
 
@@ -788,7 +909,7 @@
         const merchModal = document.getElementById('merch-modal');
 
         // =========================================================
-        // 3. ФУНКЦИИ ИГРОКОВ (МОДАЛКА)
+        // 3. ФУНКЦИИ ИГРОКОВ (МОДАЛКА) - ИСПРАВЛЕНО
         // =========================================================
         const modal = document.getElementById('modal');
         const modalNickname = document.getElementById('modal-nickname');
@@ -796,33 +917,51 @@
         const modalRole = document.getElementById('modal-role');
         const modalAvatarImg = document.getElementById('modal-avatar-img');
         const modalBio = document.getElementById('modal-bio');
+        
+        // Временное хранилище для ID игрока, чтобы обновлять его при смене языка
+        let currentPlayerId = null;
 
         function openModal(playerId) {
-            const player = playerData[playerId];
-            if (player) {
-                // В модальном окне fullname и role пока берутся из RU-данных.
-                modalNickname.textContent = player.nickname;
-                modalFullname.textContent = player.fullname;
-                modalRole.textContent = player.role;
-                modalAvatarImg.src = player.image;
-                modalBio.innerHTML = player.bio; // RU-биография
-                
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; 
-            }
+            currentPlayerId = playerId;
+            updatePlayerModal();
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
         }
 
         function closeModal() {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto'; 
+            currentPlayerId = null;
+        }
+        
+        // НОВАЯ/ИСПРАВЛЕННАЯ ФУНКЦИЯ для обновления модалки игрока при открытии и смене языка
+        function updatePlayerModal() {
+            if (!currentPlayerId) return;
+            
+            const player = playerData[currentPlayerId];
+            const lang = currentLang;
+
+            if (player) {
+                // Полное имя, Роль и Биография берутся из ТЕКУЩЕГО перевода
+                const fullname = translations[lang][`player-fullname-${currentPlayerId}`];
+                const role = translations[lang][`player-role-${currentPlayerId}`];
+                const bioText = player.bio[lang] || player.bio['ru']; // Берем перевод биографии или RU по умолчанию
+
+                modalNickname.textContent = player.nickname;
+                modalFullname.textContent = fullname;
+                modalRole.textContent = role;
+                modalAvatarImg.src = player.image;
+                modalBio.innerHTML = bioText; // Биография содержит HTML-теги для стилизации
+            }
         }
 
+
         // =========================================================
-        // 4. ФУНКЦИИ МЕРЧА (НОВЫЙ БЛОК)
+        // 4. ФУНКЦИИ МЕРЧА
         // =========================================================
         
         function updateMerchVisibility() {
-            // Обновляем статус "РАСПРОДАНО" при загрузке и смене языка
             for (const id in merchData) {
                 const item = merchData[id];
                 const overlay = document.querySelector(`[data-merch-overlay="${id}"]`);
@@ -830,7 +969,7 @@
                 const buyButton = card.querySelector('.buy-button');
                 
                 if (overlay) {
-                    // 1. Управляем оверлеем
+                    // 1. Управляем оверлеем (текст внутри него обновляется через data-lang)
                     overlay.style.display = item.isSoldOut ? 'flex' : 'none';
                     
                     // 2. Управляем кнопкой в карточке
@@ -852,7 +991,7 @@
             const item = merchData[merchId];
             const lang = currentLang;
             
-            // Получаем текст на текущем языке (если есть, иначе RU)
+            // Получаем текст на текущем языке (берем из translations)
             const name = translations[lang][`merch-name-${merchId}`];
             const description = translations[lang][`merch-description-${merchId}`];
             const price = translations[lang][`merch-price-${merchId}`];
@@ -864,9 +1003,8 @@
             document.getElementById('modal-merch-description').innerHTML = description;
 
             const select = document.getElementById('merch-size');
-            select.innerHTML = ''; // Очистка предыдущих размеров
+            select.innerHTML = ''; 
             
-            // Добавляем размеры
             item.sizes.forEach(size => {
                 const option = document.createElement('option');
                 option.value = size;
@@ -874,7 +1012,6 @@
                 select.appendChild(option);
             });
             
-            // Кнопка покупки в модалке
             const buyButton = document.getElementById('modal-buy-button');
             if (item.isSoldOut) {
                 buyButton.disabled = true;
@@ -903,7 +1040,6 @@
                 document.getElementById('cart-indicator').textContent = cartCount;
                 document.getElementById('cart-indicator').style.display = 'block';
                 
-                // Простое оповещение (будет переведено в alert)
                 alert(`"${document.getElementById('modal-merch-name').textContent}" ${translations[currentLang]['item-added-alert']}`);
                 closeMerchModal();
             }
@@ -920,7 +1056,7 @@
         }
         
         // =========================================================
-        // 5. КОНФИГУРАЦИЯ ПЕРЕВОДОВ (ОБНОВЛЕННЫЙ БЛОК)
+        // 5. КОНФИГУРАЦИЯ ПЕРЕВОДОВ 
         // =========================================================
         const translations = {
             // Русский (RU) - Базовый язык
@@ -928,7 +1064,7 @@
                 // Навигация
                 'history-link': 'История', 'roster-link': 'Состав', 'coach-link': 'Тренер', 
                 'achievements-link': 'Достижения', 'announcements-link': 'Анонсы',
-                'merch-link': 'Мерч', // НОВЫЙ
+                'merch-link': 'Мерч', 
                 
                 // HERO
                 'hero-text': 'Киберспортивная организация, идущая к вершинам CS2.',
@@ -955,7 +1091,7 @@
                 'ach-3': '1 место (CS 1.6) - Доминирование на локальной сцене.',
                 'ach-4': '1 место (CS 1.6) - Непобежденные в Херсонской области.',
                 
-                // МЕРЧ (НОВЫЙ БЛОК)
+                // МЕРЧ
                 'merch-title': 'Официальный Мерч',
                 'merch-name-jersey': 'Джерси Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -982,12 +1118,12 @@
                 // ФУТЕР
                 'footer-text': '&copy; 2025 Gladkovka Team. All rights reserved. | Создано с любовью к киберспорту.'
             },
-            // Закарпатский (ZK) - Неформальный перевод
+            // Закарпатский (ZK) 
             'zk': {
                 // Навигация
                 'history-link': 'Наща Історія', 'roster-link': 'Склад', 'coach-link': 'Тренер', 
                 'achievements-link': 'Награды', 'announcements-link': 'Анонси',
-                'merch-link': 'Мерч', // НОВЫЙ
+                'merch-link': 'Мерч', 
                 
                 // HERO
                 'hero-text': 'Кіберспортивна файна-організація, що йде до верховини CS2.',
@@ -1014,7 +1150,7 @@
                 'ach-3': '1-е місце (CS 1.6) - Домінування на мєстній сцені.',
                 'ach-4': '1-е місце (CS 1.6) - Найкращі у Херсонській області.',
                 
-                // МЕРЧ (НОВЫЙ БЛОК)
+                // МЕРЧ
                 'merch-title': 'Офіційний Мерч',
                 'merch-name-jersey': 'Футболка Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -1046,287 +1182,7 @@
                 // Навигация
                 'history-link': 'History', 'roster-link': 'Roster', 'coach-link': 'Coach', 
                 'achievements-link': 'Achievements', 'announcements-link': 'Announcements',
-                'merch-link': 'Merch', // НОВЫЙ
+                'merch-link': 'Merch', 
                 
                 // HERO
-                'hero-text': 'An esports organization striving for the top of CS2.',
-                
-                // ИСТОРИЯ
-                'history-title': 'Our History',
-                'history-text': 'The history of Gladkovka Team began back in 2003 in Kherson. The founder, Dmitry "3eJIeHk1H" Zelenkin, saw a chance at a gaming tournament with a prize pool of 10,000 UAH. He gathered friends from Gladkovka: Kaban, M3t3l1k, C0cyh0v, M4m3d. The nameless team, playing Counter-Strike 1.6, easily defeated tier-2 opponents, not losing a single map. The victory gave the name: Gladkovka Team. Today, the team conquers Counter-Strike 2, and the green color in the logo is a tribute and a symbol of the founder\'s legacy.',
-                
-                // СОСТАВ
-                'roster-title': 'Current CS2 Roster',
-                'player-fullname-nopidorabeme': 'Nikita Zhopynsky', 'player-role-nopidorabeme': 'CAPTAIN',
-                'player-fullname-ronik': 'Stanislav Kyrychenko', 'player-role-ronik': 'Rifler',
-                'player-fullname-danich': 'Daniil Stanika', 'player-role-danich': 'Rifler',
-                'player-fullname-kunimen': 'Yegor Belyavsky', 'player-role-kunimen': 'Rifler',
-                'player-fullname-valerapickingass': 'Valera Vzhopekovyryaetsya', 'player-role-valerapickingass': 'AWP',
-                
-                // ТРЕНЕР
-                'coach-title': 'Our Coach', 'coach-fullname': 'Stanislav Petlyuchenko', 'coach-role': 'Coach',
-                
-                // ДОСТИЖЕНИЯ
-                'achievements-title': 'Achievements',
-                'ach-1': '1st place (CS2) - The legend continues!',
-                'ach-2': '2nd place (CS 1.6) - First international success.',
-                'ach-3': '1st place (CS 1.6) - Dominance on the local scene.',
-                'ach-4': '1st place (CS 1.6) - Undefeated in the Kherson region.',
-                
-                // МЕРЧ (НОВЫЙ БЛОК)
-                'merch-title': 'Official Merch',
-                'merch-name-jersey': 'Gladkovka Team Jersey',
-                'merch-price-jersey': '67 EUR',
-                'merch-description-jersey': 'The team\'s official gaming shirt. Made from breathable material, perfect for LAN tournaments or casual wear. Features the logo on the chest and sponsors on the sleeves.',
-                'merch-name-kepka': 'Gladkovka Team Cap',
-                'merch-price-kepka': '20 EUR',
-                'merch-description-kepka': 'Classic black cap with a neon green logo. The perfect accessory for a true fan.',
-                'merch-name-gladrick': 'GladRicks Shoes',
-                'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Exclusive collection. Ultra-expensive sneakers with player autographs and a hidden chip for +10 to AWP skill. Limited quantity! Made from recycled materials.',
-                'buy-button-text': 'Buy Now',
-                'sold-out-text': 'SOLD OUT',
-                'merch-size-label': 'Select size:',
-                'merch-disclaimer': 'Note: This is a test function, no order will be placed.',
-                'item-added-alert': 'has been added to the cart!',
-
-                // АНОНСЫ
-                'announcements-title': 'Upcoming Matches',
-                'match-title': 'GoodGame 2x2 Wingman Tournament',
-                'match-discipline': 'Discipline: Counter-Strike 2 (Wingman)',
-                'match-players': 'Participants: kunimen & ronik',
-                'match-date': 'October 12, 2025',
-                
-                // ФУТЕР
-                'footer-text': '&copy; 2025 Gladkovka Team. All rights reserved. | Made with love for esports.'
-            },
-            // Украинский (UA)
-            'ua': {
-                // Навигация
-                'history-link': 'Історія', 'roster-link': 'Склад', 'coach-link': 'Тренер', 
-                'achievements-link': 'Досягнення', 'announcements-link': 'Анонси',
-                'merch-link': 'Мерч', // НОВЫЙ
-                
-                // HERO
-                'hero-text': 'Кіберспортивна організація, що прямує до вершин CS2.',
-                
-                // ИСТОРИЯ
-                'history-title': 'Наша Історія',
-                'history-text': 'Історія Gladkovka Team розпочалася у далекому 2003 році в м. Херсон. Засновник, Дмитро "3eJIeHk1H" Зеленкін, побачив шанс на ігровому турнірі з призовим фондом 10,000 гривень. Він зібрав друзів із Гладковки: Kaban, M3t3l1k, C0cyh0v, M4m3d. Команда без назви, граючи в Counter-Strike 1.6, з легкістю здолала тир-2 суперників, не програвши жодної карти. Перемога дала ім\'я: Gladkovka Team. Сьогодні команда підкорює Counter-Strike 2, а зелений колір у логотипі — данина поваги та символ спадщини засновника.',
-                
-                // СОСТАВ
-                'roster-title': 'Актуальний Склад CS2',
-                'player-fullname-nopidorabeme': 'Микита Жопинський', 'player-role-nopidorabeme': 'КАПІТАН',
-                'player-fullname-ronik': 'Станіслав Кириченко', 'player-role-ronik': 'Ріфлер',
-                'player-fullname-danich': 'Данило Станіка', 'player-role-danich': 'Ріфлер',
-                'player-fullname-kunimen': 'Єгор Бєлявський', 'player-role-kunimen': 'Ріфлер',
-                'player-fullname-valerapickingass': 'Валера Вжопєковіряєтся', 'player-role-valerapickingass': 'АВП',
-                
-                // ТРЕНЕР
-                'coach-title': 'Наш Тренер', 'coach-fullname': 'Станіслав Петлюченко', 'coach-role': 'Тренер',
-                
-                // ДОСТИЖЕНИЯ
-                'achievements-title': 'Досягнення',
-                'ach-1': '1 місце (CS2) - Легенда триває!',
-                'ach-2': '2 місце (CS 1.6) - Перший міжнародний успіх.',
-                'ach-3': '1 місце (CS 1.6) - Домінування на локальній сцені.',
-                'ach-4': '1 місце (CS 1.6) - Непереможні у Херсонській області.',
-                
-                // МЕРЧ (НОВЫЙ БЛОК)
-                'merch-title': 'Офіційний Мерч',
-                'merch-name-jersey': 'Джерсі Gladkovka Team',
-                'merch-price-jersey': '67 EUR',
-                'merch-description-jersey': 'Офіційна ігрова футболка команди. Виготовлена з дихаючого матеріалу, ідеальна для LAN-турнірів або повсякденного носіння. З логотипом на грудях та спонсорами на рукавах.',
-                'merch-name-kepka': 'Кепка Gladkovka Team',
-                'merch-price-kepka': '20 EUR',
-                'merch-description-kepka': 'Класична чорна кепка з неоново-зеленим логотипом. Ідеальний аксесуар для справжнього фаната.',
-                'merch-name-gladrick': 'Взуття "GladRicks"',
-                'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Ексклюзивна колекція. Ультра-дорогі кросівки з автографами гравців та прихованим чіпом для +10 до AWP. Кількість обмежена! Зроблено з перероблених матеріалів.',
-                'buy-button-text': 'Купити',
-                'sold-out-text': 'РОЗПРОДАНО',
-                'merch-size-label': 'Оберіть розмір:',
-                'merch-disclaimer': 'Примітка: Це тестова функція, замовлення не буде оформлено.',
-                'item-added-alert': 'додано до кошика!',
-                
-                // АНОНСЫ
-                'announcements-title': 'Майбутні Ігри',
-                'match-title': 'GoodGame 2x2 Wingman Tournament',
-                'match-discipline': 'Дисципліна: Counter-Strike 2 (Wingman)',
-                'match-players': 'Учасники: kunimen & ronik',
-                'match-date': '12 Жовтня 2025',
-                
-                // ФУТЕР
-                'footer-text': '&copy; 2025 Gladkovka Team. Всі права захищено. | Створено з любов\'ю до кіберспорту.'
-            },
-            // Немецкий (DE)
-            'de': {
-                // Навигация
-                'history-link': 'Geschichte', 'roster-link': 'Kader', 'coach-link': 'Trainer', 
-                'achievements-link': 'Erfolge', 'announcements-link': 'Ankündigungen',
-                'merch-link': 'Merch', // НОВЫЙ
-                
-                // HERO
-                'hero-text': 'Eine eSports-Organisation, die die Spitze von CS2 anstrebt.',
-                
-                // ИСТОРИЯ
-                'history-title': 'Unsere Geschichte',
-                'history-text': 'Die Geschichte des Gladkovka Teams begann 2003 in Cherson. Der Gründer, Dmitry "3eJIeHk1H" Zelenkin, sah eine Chance bei einem Turnier mit 10.000 UAH Preisgeld. Er versammelte Freunde aus Gladkovka: Kaban, M3t3l1k, C0cyh0v, M4m3d. Das namenlose Team, das Counter-Strike 1.6 spielte, besiegte Tier-2-Gegner problemlos, ohne eine einzige Karte zu verlieren. Der Sieg gab den Namen: Gladkovka Team. Heute erobert das Team Counter-Strike 2, und die grüne Farbe im Logo ist eine Hommage und ein Symbol für das Erbe des Gründers.',
-                
-                // СОСТАВ
-                'roster-title': 'Aktueller CS2 Kader',
-                'player-fullname-nopidorabeme': 'Nikita Zhopynsky', 'player-role-nopidorabeme': 'CAPTAIN',
-                'player-fullname-ronik': 'Stanislav Kyrychenko', 'player-role-ronik': 'Rifler',
-                'player-fullname-danich': 'Daniil Stanika', 'player-role-danich': 'Rifler',
-                'player-fullname-kunimen': 'Yegor Belyavsky', 'player-role-kunimen': 'Rifler',
-                'player-fullname-valerapickingass': 'Valera Vzhopekovyryaetsya', 'player-role-valerapickingass': 'AWP',
-                
-                // ТРЕНЕР
-                'coach-title': 'Unser Trainer', 'coach-fullname': 'Stanislav Petlyuchenko', 'coach-role': 'Trainer',
-                
-                // ДОСТИЖЕНИЯ
-                'achievements-title': 'Erfolge',
-                'ach-1': '1. Platz (CS2) - Die Legende lebt weiter!',
-                'ach-2': '2. Platz (CS 1.6) - Erster internationaler Erfolg.',
-                'ach-3': '1. Platz (CS 1.6) - Dominanz in der lokalen Szene.',
-                'ach-4': '1. Platz (CS 1.6) - Ungeschlagen in der Region Cherson.',
-                
-                // МЕРЧ (НОВЫЙ БЛОК)
-                'merch-title': 'Offizielles Merch',
-                'merch-name-jersey': 'Gladkovka Team Trikot',
-                'merch-price-jersey': '67 EUR',
-                'merch-description-jersey': 'Das offizielle Gaming-Shirt des Teams. Hergestellt aus atmungsaktivem Material, perfekt für LAN-Turniere oder Freizeit. Mit Logo auf der Brust und Sponsoren auf den Ärmeln.',
-                'merch-name-kepka': 'Gladkovka Team Kappe',
-                'merch-price-kepka': '20 EUR',
-                'merch-description-kepka': 'Klassische schwarze Kappe mit neongrünem Logo. Das perfekte Accessoire für einen echten Fan.',
-                'merch-name-gladrick': 'GladRicks Schuhe',
-                'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Exklusive Kollektion. Ultra-teure Sneaker mit Spielerautogrammen und verstecktem Chip für +10 AWP-Skill. Limitierte Auflage! Hergestellt aus recycelten Materialien.',
-                'buy-button-text': 'Kaufen',
-                'sold-out-text': 'AUSVERKAUFT',
-                'merch-size-label': 'Größe wählen:',
-                'merch-disclaimer': 'Hinweis: Dies ist eine Testfunktion, es wird keine Bestellung aufgegeben.',
-                'item-added-alert': 'wurde dem Warenkorb hinzugefügt!',
-                
-                // АНОНСЫ
-                'announcements-title': 'Kommende Spiele',
-                'match-title': 'GoodGame 2x2 Wingman Turnier',
-                'match-discipline': 'Disziplin: Counter-Strike 2 (Wingman)',
-                'match-players': 'Teilnehmer: kunimen & ronik',
-                'match-date': '12. Oktober 2025',
-                
-                // ФУТЕР
-                'footer-text': '&copy; 2025 Gladkovka Team. Alle Rechte vorbehalten. | Mit Liebe zum eSport erstellt.'
-            },
-            // Арабский (AR)
-            'ar': {
-                // Навигация
-                'history-link': 'التاريخ', 'roster-link': 'القائمة', 'coach-link': 'المدرب', 
-                'achievements-link': 'الإنجازات', 'announcements-link': 'الإعلانات',
-                'merch-link': 'المتجر', // НОВЫЙ
-                
-                // HERO
-                'hero-text': 'منظمة رياضات إلكترونية تسعى إلى قمة لعبة CS2.',
-                
-                // ИСТОРИЯ
-                'history-title': 'تاريخنا',
-                'history-text': 'بدأ تاريخ فريق Gladkovka في عام 2003 في خيرسون. رأى المؤسس، ديمتري "3eJIeHk1H" زيلينكين، فرصة في بطولة ألعاب بجائزة قدرها 10,000 هريفنيا. جمع أصدقاء من غلادكوفكا: كابان، إم3تي3إل1ك، سي0سييه0في، إم4إم3د. فاز الفريق المجهول، الذي كان يلعب Counter-Strike 1.6، بسهولة على منافسي المستوى الثاني دون أن يخسر أي خريطة. منح الانتصار الاسم: Gladkovka Team. اليوم، يتغلب الفريق على Counter-Strike 2، واللون الأخضر في الشعار هو تكريم ورمز لإرث المؤسس.',
-                
-                // СОСТАВ
-                'roster-title': 'قائمة CS2 الحالية',
-                'player-fullname-nopidorabeme': 'نيكيتا جوبينسكي', 'player-role-nopidorabeme': 'القائد',
-                'player-fullname-ronik': 'ستانيسلاف كيريتشينكو', 'player-role-ronik': 'مهاجم',
-                'player-fullname-danich': 'دانييل ستانيكا', 'player-role-danich': 'مهاجم',
-                'player-fullname-kunimen': 'ييغور بيليافسكي', 'player-role-kunimen': 'مهاجم',
-                'player-fullname-valerapickingass': 'فاليرا فجوبيكوفيريايتسيا', 'player-role-valerapickingass': 'قناص (AWP)',
-                
-                // ТРЕНЕР
-                'coach-title': 'مدربنا', 'coach-fullname': 'ستانيسلاف بيتليوتشينكو', 'coach-role': 'مدرب',
-                
-                // ДОСТИЖЕНИЯ
-                'achievements-title': 'الإنجازات',
-                'ach-1': 'المركز الأول (CS2) - الأسطورة مستمرة!',
-                'ach-2': 'المركز الثاني (CS 1.6) - أول نجاح دولي.',
-                'ach-3': 'المركز الأول (CS 1.6) - الهيمنة على الساحة المحلية.',
-                'ach-4': 'المركز الأول (CS 1.6) - بلا هزيمة في منطقة خيرسون.',
-                
-                // МЕРЧ (НОВЫЙ БЛОК)
-                'merch-title': 'المتجر الرسمي',
-                'merch-name-jersey': 'قميص Gladkovka Team',
-                'merch-price-jersey': '67 EUR',
-                'merch-description-jersey': 'القميص الرسمي للفريق. مصنوع من مواد قابلة للتنفس، مثالي لبطولات LAN أو الارتداء اليومي. يتميز بشعار الفريق على الصدر والجهات الراعية على الأكمام.',
-                'merch-name-kepka': 'قبعة Gladkovka Team',
-                'merch-price-kepka': '20 EUR',
-                'merch-description-kepka': 'قبعة سوداء كلاسيكية بشعار أخضر نيون. الإكسسوار المثالي للمشجع الحقيقي.',
-                'merch-name-gladrick': 'أحذية "GladRicks"',
-                'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'مجموعة حصرية. أحذية رياضية فائقة التكلفة بتوقيعات اللاعبين وشريحة مخفية لـ +10 لمهارة AWP. كمية محدودة! مصنوعة من مواد معاد تدويرها.',
-                'buy-button-text': 'شراء الآن',
-                'sold-out-text': 'نَفِدَ المخزون',
-                'merch-size-label': 'اختر المقاس:',
-                'merch-disclaimer': 'ملاحظة: هذه وظيفة اختبارية، لن يتم وضع أي طلب.',
-                'item-added-alert': 'تمت إضافته إلى سلة التسوق!',
-
-                // АНОНСЫ
-                'announcements-title': 'المباريات القادمة',
-                'match-title': 'GoodGame 2x2 Wingman Tournament',
-                'match-discipline': 'التخصص: Counter-Strike 2 (Wingman)',
-                'match-players': 'المشاركون: كونيمين ورونيك',
-                'match-date': '12 أكتوبر 2025',
-                
-                // ФУТЕР
-                'footer-text': '&copy; 2025 Gladkovka Team. جميع الحقوق محفوظة. | صنع بحب للرياضات الإلكترونية.'
-            },
-            // Запасной для неизвестных языков
-            'default': {
-                'buy-button-text': 'Buy',
-                'sold-out-text': 'SOLD OUT',
-                'merch-size-label': 'Select size:',
-                'merch-disclaimer': 'Note: This is a test function, no order will be placed.',
-                'item-added-alert': 'added to cart!',
-            }
-        };
-
-        // =========================================================
-        // 6. ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА (ОБНОВЛЕННЫЙ БЛОК)
-        // =========================================================
-        function switchLanguage(lang) {
-            currentLang = lang;
-            const currentTranslations = translations[lang] || translations['default'];
-
-            // Обновление всех элементов с атрибутом data-lang
-            document.querySelectorAll('[data-lang]').forEach(element => {
-                const key = element.getAttribute('data-lang');
-                if (currentTranslations[key]) {
-                    // Обновляем innerHTML, так как footer-text содержит &copy;
-                    element.innerHTML = currentTranslations[key]; 
-                }
-            });
-
-            // Обновление элементов по ID
-            document.getElementById('hero-text').textContent = currentTranslations['hero-text'];
-            document.getElementById('history-text').textContent = currentTranslations['history-text'];
-            // footer-text уже обновлен через data-lang
-            
-            // Обновление активной кнопки
-            document.querySelectorAll('.language-switcher button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.querySelector(`.language-switcher button[onclick="switchLanguage('${lang}')"]`).classList.add('active');
-
-            // Обновление названия страницы
-            document.title = (lang === 'en' ? 'Gladkovka Team | Official site' : 'Gladkovka Team | Офіційний сайт');
-            
-            // Обновление мерча (кнопки и оверлеи)
-            updateMerchVisibility();
-        }
-
-        // Запуск русского языка при загрузке (для применения логики "РАСПРОДАНО" и перевода кнопок)
-        document.addEventListener('DOMContentLoaded', () => {
-             // Инициализируем язык, чтобы применилась логика видимости мерча
-             switchLanguage('ru');
-        });
-    </script>
-
-</body>
-</html>
+                'hero-text': 'An esports organization
