@@ -488,8 +488,6 @@
         .match-card h3 { font-size: 2em; color: var(--color-accent); margin-bottom: 10px;
         }
         .match-card p { font-size: 1.2em; margin-bottom: 5px; }
-        .match-card .players { margin-top: 10px; font-style: italic; opacity: 0.8;
-        }
         .match-card .date { font-size: 1.5em; font-weight: bold; color: var(--color-text); margin-top: 15px;
         }
         .match-card .players { margin-top: 10px; font-style: italic; opacity: 0.8;
@@ -628,8 +626,8 @@
             </div>
             
             <div class="merch-card" data-merch-id="gladrick" onclick="openMerchModal('gladrick')">
-                <img src="gladrick.jpg" alt="Rick Owens & Gladkovka Team Shoes">
-                <h3 data-lang="merch-name-gladrick">Rick Owens & Gladkovka Team</h3>
+                <img src="gladrick.jpg" alt="Gladkovka Team Shoes">
+                <h3 data-lang="merch-name-gladrick">Обувь "GladRicks"</h3>
                 <p class="price" data-lang="merch-price-gladrick">800 EUR</p>
                 <button class="buy-button" data-lang="buy-button-text">Купить</button> 
                 <div class="sold-out-overlay" data-merch-overlay="gladrick" style="display: none;">
@@ -684,7 +682,8 @@
             </div>
             
             <button class="buy-button" id="modal-buy-button" onclick="addToCart(currentMerchId)" data-lang="buy-button-text">Купить</button>
-            </div>
+            <p style="margin-top: 15px; font-style: italic;" data-lang="merch-disclaimer">Примечание: Это тестовая функция, заказ не будет оформлен.</p>
+        </div>
     </div>
 
     <div class="cart-indicator" id="cart-indicator" style="display: none;">
@@ -695,12 +694,13 @@
         let currentLang = 'ru'; 
 
         // =========================================================
-        // 1. КОНФИГУРАЦИЯ ДАННЫХ ИГРОКОВ
+        // 1. КОНФИГУРАЦИЯ ДАННЫХ ИГРОКОВ (Добавлены переводы био)
         // =========================================================
         const playerData = {
             'nopidorabeme': {
                 nickname: 'Nopidorabeme',
                 image: 'image_488730.jpg',
+                // Биографии для всех языков
                 bio: {
                     ru: '<p>Никита — ветеран Gladkovka Team и лидер, который управляет экономикой и стратегией команды. Его хладнокровие в клатчах — залог успеха. Присоединился к команде, чтобы восстановить легенду. Его называют "мозгом" Gladkovka Team.</p>' +
                         '<p class="bio-achievement">Обладатель кубка "Золотая ложка".</p>' +
@@ -834,7 +834,7 @@
                         '<p class="bio-fact">Раніше був снайпером в CS:GO.</p>',
                     de: '<p>Yegor ist ein vielseitiger und guter Spieler in allen Spielen. Oft verantwortlich für die Kontrolle der Mitte und unerwartete Angriffe. Sein unvorhersehbarer Spielstil überrascht die Gegner oft.</p>' +
                         '<p class="bio-achievement">Gewann den "Weiße Decke" Pokal in der Disziplin Dota 2.</p>' +
-                        '<p class="bio-fact">Hat hohes ELO auf Faceit. Ehemaliger E-Sportler für Dota 2.</p>' +
+                        '<p>Hat hohes ELO auf Faceit. Ehemaliger E-Sportler für Dota 2.</p>' +
                         '<p class="bio-fact">War früher ein AWP-Spieler in CS:GO.</p>',
                     ar: '<p>ييغور هو لاعب متعدد الاستخدامات وجيد في جميع الألعاب. غالبًا ما يكون مسؤولاً عن التحكم في المنتصف والهجمات غير المتوقعة. أسلوبه غير المتوقع في اللعب غالبًا ما يفاجئ الخصوم.</p>' +
                         '<p class="bio-achievement">فاز بكأس "البطانية البيضاء" في لعبة Dota 2.</p>' +
@@ -864,7 +864,7 @@
                         '<p>Легенда гладковської сцени і файно грає з AWP.</p>',
                     de: '<p>Valery ist der Haupt-Scharfschütze des Teams und der Stammvater des Gladkovka eSports.</p>' +
                         '<p class="bio-fact">Er ist der Sohn eines ehemaligen Spielers des alten Gladkovka Team Kaders - "Vitalik Metelyk".</p>' +
-                        '<p class="bio-fact">Sein AWP ist die präziseste Waffe im Arsenal des Gladkovka Teams. Er deckt lange Distanzen ab und hält feindliche Angriffe zurück, um eine zuverlässige Verteidigung zu gewährleisten.</p>' +
+                        '<p>Sein AWP ist die präziseste Waffe im Arsenal des Gladkovka Teams. Er deckt lange Distanzen ab und hält feindliche Angriffe zurück, um eine zuverlässige Verteidigung zu gewährleisten.</p>' +
                         '<p>Eine Legende der Gladkovka Pro-Szene und ein sehr guter AWP-Spieler.</p>',
                     ar: '<p>فاليري هو القناص الرئيسي للفريق ومؤسس الرياضات الإلكترونية في غلادكوفكا.</p>' +
                         '<p class="bio-fact">هو ابن لاعب سابق في التشكيلة القديمة لفريق Gladkovka - "فيتاليك ميتيليك".</p>' +
@@ -875,7 +875,7 @@
         };
 
         // =========================================================
-        // 2. ДАННЫЕ МЕРЧА (ОБНОВЛЕНО)
+        // 2. ДАННЫЕ МЕРЧА
         // =========================================================
         const merchData = {
             'jersey': {
@@ -884,7 +884,7 @@
                 image: 'jerseyshirt.jpg',
                 description_ru: 'Официальная игровая футболка команды. Сделана из дышащего материала, идеальна для LAN-турниров или повседневной носки. С логотипом на груди и спонсорами на рукавах.',
                 sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-                isSoldOut: true // ИЗМЕНЕНО: теперь распродано
+                isSoldOut: false
             },
             'kepka': {
                 name_ru: 'Кепка Gladkovka Team',
@@ -892,14 +892,13 @@
                 image: 'kepka.jpg',
                 description_ru: 'Классическая черная кепка с неоновым зеленым логотипом. Идеальный аксессуар для настоящего фаната.',
                 sizes: ['One Size'],
-                isSoldOut: true // ИЗМЕНЕНО: теперь распродано
+                isSoldOut: false
             },
             'gladrick': {
-                name_ru: 'Rick Owens & Gladkovka Team', // ИЗМЕНЕНО: Новое название
+                name_ru: 'Обувь "GladRicks"',
                 price: '800 EUR',
                 image: 'gladrick.jpg',
-                // ИЗМЕНЕНО: Новое описание
-                description_ru: 'Коллаборация с всемирно известным брендом Rick Owens. Эксклюзивная модель с уникальной подписью. Созданы для тех, кто не приемлет компромиссов. Количество строго ограничено.', 
+                description_ru: 'Эксклюзивная коллекция. Ультра-дорогие кроссовки с автографами игроков и скрытым чипом для +10 к AWP. Количество ограничено! Сделаны из переработанных материалов.',
                 sizes: ['38', '39', '40', '41', '42', '43', '44', '45'],
                 isSoldOut: true
             }
@@ -910,7 +909,7 @@
         const merchModal = document.getElementById('merch-modal');
 
         // =========================================================
-        // 3. ФУНКЦИИ ИГРОКОВ (МОДАЛКА)
+        // 3. ФУНКЦИИ ИГРОКОВ (МОДАЛКА) - ИСПРАВЛЕНО
         // =========================================================
         const modal = document.getElementById('modal');
         const modalNickname = document.getElementById('modal-nickname');
@@ -919,6 +918,7 @@
         const modalAvatarImg = document.getElementById('modal-avatar-img');
         const modalBio = document.getElementById('modal-bio');
         
+        // Временное хранилище для ID игрока, чтобы обновлять его при смене языка
         let currentPlayerId = null;
 
         function openModal(playerId) {
@@ -935,6 +935,7 @@
             currentPlayerId = null;
         }
         
+        // НОВАЯ/ИСПРАВЛЕННАЯ ФУНКЦИЯ для обновления модалки игрока при открытии и смене языка
         function updatePlayerModal() {
             if (!currentPlayerId) return;
             
@@ -942,15 +943,16 @@
             const lang = currentLang;
 
             if (player) {
+                // Полное имя, Роль и Биография берутся из ТЕКУЩЕГО перевода
                 const fullname = translations[lang][`player-fullname-${currentPlayerId}`];
                 const role = translations[lang][`player-role-${currentPlayerId}`];
-                const bioText = player.bio[lang] || player.bio['ru']; 
+                const bioText = player.bio[lang] || player.bio['ru']; // Берем перевод биографии или RU по умолчанию
 
                 modalNickname.textContent = player.nickname;
                 modalFullname.textContent = fullname;
                 modalRole.textContent = role;
                 modalAvatarImg.src = player.image;
-                modalBio.innerHTML = bioText; 
+                modalBio.innerHTML = bioText; // Биография содержит HTML-теги для стилизации
             }
         }
 
@@ -967,7 +969,7 @@
                 const buyButton = card.querySelector('.buy-button');
                 
                 if (overlay) {
-                    // 1. Управляем оверлеем 
+                    // 1. Управляем оверлеем (текст внутри него обновляется через data-lang)
                     overlay.style.display = item.isSoldOut ? 'flex' : 'none';
                     
                     // 2. Управляем кнопкой в карточке
@@ -989,6 +991,7 @@
             const item = merchData[merchId];
             const lang = currentLang;
             
+            // Получаем текст на текущем языке (берем из translations)
             const name = translations[lang][`merch-name-${merchId}`];
             const description = translations[lang][`merch-description-${merchId}`];
             const price = translations[lang][`merch-price-${merchId}`];
@@ -1039,9 +1042,6 @@
                 
                 alert(`"${document.getElementById('modal-merch-name').textContent}" ${translations[currentLang]['item-added-alert']}`);
                 closeMerchModal();
-            } else {
-                alert(translations[currentLang]['sold-out-alert']);
-                closeMerchModal();
             }
         }
         
@@ -1056,7 +1056,7 @@
         }
         
         // =========================================================
-        // 5. КОНФИГУРАЦИЯ ПЕРЕВОДОВ (ОБНОВЛЕНО)
+        // 5. КОНФИГУРАЦИЯ ПЕРЕВОДОВ 
         // =========================================================
         const translations = {
             // Русский (RU) - Базовый язык
@@ -1091,7 +1091,7 @@
                 'ach-3': '1 место (CS 1.6) - Доминирование на локальной сцене.',
                 'ach-4': '1 место (CS 1.6) - Непобежденные в Херсонской области.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'Официальный Мерч',
                 'merch-name-jersey': 'Джерси Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -1099,13 +1099,13 @@
                 'merch-name-kepka': 'Кепка Gladkovka Team',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'Классическая черная кепка с неоновым зеленым логотипом. Идеальный аксессуар для настоящего фаната.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'Обувь "GladRicks"',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Коллаборация с всемирно известным брендом Rick Owens. Эксклюзивная модель с уникальной подписью. Созданы для тех, кто не приемлет компромиссов. Количество строго ограничено.',
+                'merch-description-gladrick': 'Эксклюзивная коллекция. Ультра-дорогие кроссовки с автографами игроков и скрытым чипом для +10 к AWP. Количество ограничено! Сделаны из переработанных материалов.',
                 'buy-button-text': 'Купить',
                 'sold-out-text': 'РАСПРОДАНО',
-                'sold-out-alert': 'Извините, этот товар распродан!',
                 'merch-size-label': 'Выберите размер:',
+                'merch-disclaimer': 'Примечание: Это тестовая функция, заказ не будет оформлен.',
                 'item-added-alert': 'добавлен в корзину!',
                 
                 // АНОНСЫ
@@ -1150,7 +1150,7 @@
                 'ach-3': '1-е місце (CS 1.6) - Домінування на мєстній сцені.',
                 'ach-4': '1-е місце (CS 1.6) - Найкращі у Херсонській області.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'Офіційний Мерч',
                 'merch-name-jersey': 'Футболка Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -1158,13 +1158,13 @@
                 'merch-name-kepka': 'Кепка Gladkovka Team',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'Класична чорна кепка з зеленим логотипом. Файно пасує справжнім фанатам.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'Черевики "GladRicks"',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Коллаборація з всесвітньо відомим брендом Rick Owens. Ексклюзивна модель з підписом. Зроблено для тих, хто не любить компромісів. Кількість строго обмежена.',
+                'merch-description-gladrick': 'Ексклюзивна колекція. Ультра-дорогі кросівки з автографами та чіпом для +10 АВП. Кількість обмежена! Зроблено з перероблених матеріалів.',
                 'buy-button-text': 'Купити',
                 'sold-out-text': 'РОЗПРОДАНО',
-                'sold-out-alert': 'Вибачте, цей товар розпродано!',
                 'merch-size-label': 'Виберіть розмір:',
+                'merch-disclaimer': 'Примітка: Це тестова функція, замовлення не буде оформлено.',
                 'item-added-alert': 'додано до кошика!',
                 
                 // АНОНСЫ
@@ -1209,7 +1209,7 @@
                 'ach-3': '1st place (CS 1.6) - Dominance on the local scene.',
                 'ach-4': '1st place (CS 1.6) - Undefeated in the Kherson region.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'Official Merch',
                 'merch-name-jersey': 'Gladkovka Team Jersey',
                 'merch-price-jersey': '67 EUR',
@@ -1217,13 +1217,13 @@
                 'merch-name-kepka': 'Gladkovka Team Cap',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'Classic black cap with a neon green logo. The perfect accessory for a true fan.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'GladRicks Shoes',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Collaboration with the globally renowned brand Rick Owens. Exclusive model with a unique signature. Created for those who accept no compromises. Quantity is strictly limited.',
+                'merch-description-gladrick': 'Exclusive collection. Ultra-expensive sneakers with player autographs and a hidden chip for +10 to AWP skill. Limited quantity! Made from recycled materials.',
                 'buy-button-text': 'Buy Now',
                 'sold-out-text': 'SOLD OUT',
-                'sold-out-alert': 'Sorry, this item is sold out!',
                 'merch-size-label': 'Select size:',
+                'merch-disclaimer': 'Note: This is a test function, no order will be placed.',
                 'item-added-alert': 'has been added to the cart!',
 
                 // АНОНСЫ
@@ -1268,7 +1268,7 @@
                 'ach-3': '1 місце (CS 1.6) - Домінування на локальній сцені.',
                 'ach-4': '1 місце (CS 1.6) - Непереможні у Херсонській області.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'Офіційний Мерч',
                 'merch-name-jersey': 'Джерсі Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -1276,13 +1276,13 @@
                 'merch-name-kepka': 'Кепка Gladkovka Team',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'Класична чорна кепка з неоново-зеленим логотипом. Ідеальний аксесуар для справжнього фаната.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'Взуття "GladRicks"',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Колаборація з всесвітньо відомим брендом Rick Owens. Ексклюзивна модель з унікальним підписом. Створені для тих, хто не сприймає компромісів. Кількість суворо обмежена.',
+                'merch-description-gladrick': 'Ексклюзивна колекція. Ультра-дорогі кросівки з автографами гравців та прихованим чіпом для +10 до AWP. Кількість обмежена! Зроблено з перероблених матеріалів.',
                 'buy-button-text': 'Купити',
                 'sold-out-text': 'РОЗПРОДАНО',
-                'sold-out-alert': 'Вибачте, цей товар розпродано!',
                 'merch-size-label': 'Оберіть розмір:',
+                'merch-disclaimer': 'Примітка: Це тестова функція, замовлення не буде оформлено.',
                 'item-added-alert': 'додано до кошика!',
                 
                 // АНОНСЫ
@@ -1327,7 +1327,7 @@
                 'ach-3': '1. Platz (CS 1.6) - Dominanz in der lokalen Szene.',
                 'ach-4': '1. Platz (CS 1.6) - Ungeschlagen in der Region Cherson.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'Offizielles Merch',
                 'merch-name-jersey': 'Gladkovka Team Trikot',
                 'merch-price-jersey': '67 EUR',
@@ -1335,13 +1335,13 @@
                 'merch-name-kepka': 'Gladkovka Team Kappe',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'Klassische schwarze Kappe mit neongrünem Logo. Das perfekte Accessoire für einen echten Fan.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'GladRicks Schuhe',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'Zusammenarbeit mit der weltbekannten Marke Rick Owens. Exklusives Modell mit einzigartiger Signatur. Geschaffen für diejenigen, die keine Kompromisse eingehen. Die Menge ist streng limitiert.',
+                'merch-description-gladrick': 'Exklusive Kollektion. Ultra-teure Sneaker mit Spielerautogrammen und verstecktem Chip für +10 AWP-Skill. Limitierte Auflage! Hergestellt aus recycelten Materialien.',
                 'buy-button-text': 'Kaufen',
                 'sold-out-text': 'AUSVERKAUFT',
-                'sold-out-alert': 'Entschuldigung, dieser Artikel ist ausverkauft!',
                 'merch-size-label': 'Größe wählen:',
+                'merch-disclaimer': 'Hinweis: Dies ist eine Testfunktion, es wird keine Bestellung aufgegeben.',
                 'item-added-alert': 'wurde dem Warenkorb hinzugefügt!',
                 
                 // АНОНСЫ
@@ -1386,7 +1386,7 @@
                 'ach-3': 'المركز الأول (CS 1.6) - الهيمنة على الساحة المحلية.',
                 'ach-4': 'المركز الأول (CS 1.6) - بلا هزيمة في منطقة خيرسون.',
                 
-                // МЕРЧ (ОБНОВЛЕНО)
+                // МЕРЧ
                 'merch-title': 'المتجر الرسمي',
                 'merch-name-jersey': 'قميص Gladkovka Team',
                 'merch-price-jersey': '67 EUR',
@@ -1394,13 +1394,13 @@
                 'merch-name-kepka': 'قبعة Gladkovka Team',
                 'merch-price-kepka': '20 EUR',
                 'merch-description-kepka': 'قبعة سوداء كلاسيكية بشعار أخضر نيون. الإكسسوار المثالي للمشجع الحقيقي.',
-                'merch-name-gladrick': 'Rick Owens & Gladkovka Team',
+                'merch-name-gladrick': 'أحذية "GladRicks"',
                 'merch-price-gladrick': '800 EUR',
-                'merch-description-gladrick': 'تعاون مع العلامة التجارية الشهيرة عالميًا Rick Owens. نموذج حصري بتوقيع فريد. صُنعت لأولئك الذين لا يقبلون التنازلات. الكمية محدودة للغاية.',
+                'merch-description-gladrick': 'مجموعة حصرية. أحذية رياضية فائقة التكلفة بتوقيعات اللاعبين وشريحة مخفية لـ +10 لمهارة AWP. كمية محدودة! مصنوعة من مواد معاد تدويرها.',
                 'buy-button-text': 'شراء الآن',
                 'sold-out-text': 'نَفِدَ المخزون',
-                'sold-out-alert': 'عذرًا، نفد مخزون هذا المنتج!',
                 'merch-size-label': 'اختر المقاس:',
+                'merch-disclaimer': 'ملاحظة: هذه وظيفة اختبارية، لن يتم وضع أي طلب.',
                 'item-added-alert': 'تمت إضافته إلى سلة التسوق!',
 
                 // АНОНСЫ
@@ -1417,8 +1417,8 @@
             'default': {
                 'buy-button-text': 'Buy',
                 'sold-out-text': 'SOLD OUT',
-                'sold-out-alert': 'Sorry, this item is sold out!',
                 'merch-size-label': 'Select size:',
+                'merch-disclaimer': 'Note: This is a test function, no order will be placed.',
                 'item-added-alert': 'added to cart!',
             }
         };
