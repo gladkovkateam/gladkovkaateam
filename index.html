@@ -24,10 +24,10 @@
             background-color: var(--color-primary);
             color: var(--color-text);
             line-height: 1.6;
-            padding-top: 80px; /* Отступ для фиксированного хедера */
+            padding-top: 80px;
         }
 
-        /* Хедер (Навигация) */
+        /* ----------------------- Хедер (Навигация) ----------------------- */
         header {
             background-color: var(--color-primary);
             color: var(--color-text);
@@ -89,56 +89,7 @@
             display: block;
         }
 
-        /* Секция Героя (Hero) */
-        #hero {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('ФАЙЛ_ФОНА_ИГРЫ.jpg') no-repeat center center/cover; /* ЗАМЕНИТЕ ЭТО НА ФОН CS2 */
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content img {
-            max-width: 250px;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            border: 5px solid var(--color-accent);
-            box-shadow: 0 0 25px var(--color-accent);
-        }
-
-        .hero-content h1 {
-            font-size: 4em;
-            margin-bottom: 10px;
-            color: var(--color-accent);
-            text-shadow: 0 0 20px var(--color-accent);
-        }
-
-        .hero-content p {
-            font-size: 1.5em;
-            font-weight: 300;
-        }
-
-        /* Секция Истории */
-        #history {
-            background-color: var(--color-card);
-        }
-
-        .history-content {
-            font-size: 1.1em;
-            padding: 20px;
-            border-left: 5px solid var(--color-accent);
-            background-color: var(--color-primary);
-            border-radius: 5px;
-        }
-
-        .history-content strong {
-            color: var(--color-accent);
-        }
-
-        /* Секция Состав */
+        /* ----------------------- Секция Состав ----------------------- */
         .roster-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -154,6 +105,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s, box-shadow 0.3s;
             border-top: 4px solid var(--color-accent);
+            cursor: pointer; /* Делаем карточку кликабельной */
         }
 
         .player-card:hover {
@@ -167,7 +119,7 @@
             object-fit: cover;
             border-bottom: 3px solid var(--color-accent);
         }
-
+        
         .player-card h3 {
             margin: 15px 0 5px;
             font-size: 1.5em;
@@ -186,113 +138,154 @@
             font-size: 1.1em;
             margin-top: 5px;
         }
-
-        /* Секция Тренер */
-        #coach .coach-card {
-            text-align: center;
-            background-color: var(--color-card);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border-top: 4px solid var(--color-accent);
-            max-width: 300px;
-            margin: 0 auto;
+        
+        /* ----------------------- МОДАЛЬНОЕ ОКНО ----------------------- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); 
+            backdrop-filter: blur(5px);
         }
-        #coach .coach-card img {
-            width: 150px;
-            height: 150px;
+
+        .modal-content {
+            background-color: var(--color-card);
+            margin: 5% auto; 
+            padding: 30px;
+            border: 2px solid var(--color-accent);
+            width: 90%;
+            max-width: 900px;
+            border-radius: 10px;
+            animation: slideIn 0.5s;
+            display: flex;
+            gap: 30px;
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                flex-direction: column;
+                margin: 20px auto;
+            }
+            .modal-avatar-container {
+                flex: 0 0 auto;
+            }
+            .modal-avatar {
+                height: auto;
+            }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-avatar-container {
+            flex: 0 0 300px; 
+            text-align: center;
+        }
+        
+        .modal-avatar {
+            width: 100%;
+            height: 300px;
             object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--color-accent);
+            border-radius: 10px;
+            border: 4px solid var(--color-accent);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+        }
+        
+        .modal-info {
+            flex-grow: 1;
+        }
+
+        .modal-info h3 {
+            font-size: 2.5em;
+            color: var(--color-accent);
+            margin-bottom: 5px;
+        }
+
+        .modal-info .full-name {
+            font-size: 1.2em;
+            opacity: 0.8;
             margin-bottom: 15px;
         }
-        #coach .coach-card h3 {
-            font-size: 1.8em;
-            color: var(--color-accent);
-            margin-bottom: 5px;
-        }
-        #coach .coach-card p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-        #coach .coach-card .role {
-            font-weight: bold;
-            color: var(--color-text);
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-
-        /* Секция Достижения */
-        .achievement-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .achievement-list li {
-            background-color: var(--color-card);
-            padding: 20px;
-            border-left: 5px solid var(--color-accent);
-            border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s;
-        }
-
-        .achievement-list li strong {
-            color: var(--color-accent);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* Секция Анонсы */
-        #announcements {
-            background-color: var(--color-card);
-        }
-
-        .match-card {
-            text-align: center;
-            background-color: var(--color-primary);
-            padding: 30px;
-            border-radius: 10px;
-            border: 2px solid var(--color-accent);
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
-        }
-
-        .match-card h3 {
-            font-size: 2em;
-            color: var(--color-accent);
-            margin-bottom: 10px;
-        }
-
-        .match-card p {
-            font-size: 1.2em;
-            margin-bottom: 5px;
-        }
-
-        .match-card .date {
+        
+        .modal-info .role-modal {
             font-size: 1.5em;
             font-weight: bold;
             color: var(--color-text);
-            margin-top: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--color-accent);
+            padding-bottom: 10px;
         }
 
-        .match-card .players {
-            margin-top: 10px;
+        .modal-info .bio p {
+            margin-bottom: 15px;
+        }
+        
+        .bio-achievement {
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+        .bio-fact {
             font-style: italic;
-            opacity: 0.8;
         }
 
-        /* Футер */
-        footer {
-            background-color: #111;
-            text-align: center;
-            padding: 20px;
-            border-top: 2px solid var(--color-accent);
-            font-size: 0.9em;
+        .close {
+            color: var(--color-accent);
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
         }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Стили для остальных секций (оставлены без изменений) */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('ФАЙЛ_ФОНА_ИГРЫ.jpg') no-repeat center center/cover;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-content img { max-width: 250px; margin-bottom: 20px; border-radius: 50%; border: 5px solid var(--color-accent); box-shadow: 0 0 25px var(--color-accent); }
+        .hero-content h1 { font-size: 4em; margin-bottom: 10px; color: var(--color-accent); text-shadow: 0 0 20px var(--color-accent); }
+        .hero-content p { font-size: 1.5em; font-weight: 300; }
+        #history { background-color: var(--color-card); }
+        .history-content { font-size: 1.1em; padding: 20px; border-left: 5px solid var(--color-accent); background-color: var(--color-primary); border-radius: 5px; }
+        .history-content strong { color: var(--color-accent); }
+        #coach .coach-card { text-align: center; background-color: var(--color-card); padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); border-top: 4px solid var(--color-accent); max-width: 300px; margin: 0 auto; }
+        #coach .coach-card img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 3px solid var(--color-accent); margin-bottom: 15px; }
+        #coach .coach-card h3 { font-size: 1.8em; color: var(--color-accent); margin-bottom: 5px; }
+        #coach .coach-card p { font-size: 1.1em; opacity: 0.9; }
+        #coach .coach-card .role { font-weight: bold; color: var(--color-text); font-size: 1.2em; margin-top: 10px; }
+        .achievement-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .achievement-list li { background-color: var(--color-card); padding: 20px; border-left: 5px solid var(--color-accent); border-radius: 5px; font-size: 1.1em; transition: background-color 0.3s; }
+        .achievement-list li strong { color: var(--color-accent); display: block; margin-bottom: 5px; }
+        #announcements { background-color: var(--color-card); }
+        .match-card { text-align: center; background-color: var(--color-primary); padding: 30px; border-radius: 10px; border: 2px solid var(--color-accent); box-shadow: 0 0 20px rgba(57, 255, 20, 0.4); }
+        .match-card h3 { font-size: 2em; color: var(--color-accent); margin-bottom: 10px; }
+        .match-card p { font-size: 1.2em; margin-bottom: 5px; }
+        .match-card .date { font-size: 1.5em; font-weight: bold; color: var(--color-text); margin-top: 15px; }
+        .match-card .players { margin-top: 10px; font-style: italic; opacity: 0.8; }
+        footer { background-color: #111; text-align: center; padding: 20px; border-top: 2px solid var(--color-accent); font-size: 0.9em; }
 
     </style>
 </head>
@@ -336,35 +329,59 @@
         <h2>Актуальный Состав CS2</h2>
         <div class="roster-grid">
             
-            <div class="player-card">
+            <div class="player-card" onclick="openModal('Nopidorabeme', 'Никита Жопынский', 'CAPTAIN', 'image_488730.jpg', 
+                '<p>Никита — ветеран Gladkovka Team и лидер, который управляет экономикой и стратегией команды. Его хладнокровие в клатчах — залог успеха. Присоединился к команде, чтобы восстановить легенду. Его называют "мозгом" Gladkovka Team.</p>' +
+                '<p class=\"bio-achievement\">Обладатель кубка "Золотая ложка".</p>' +
+                '<p class=\"bio-fact\">Является сыном известного ученого/геолога/химика/физика/математика Эдуарда Жопынского. Эдуард также был киберспортсменом по игре Fortnite.</p>' +
+                '<p>Никита известен своей хорошей игрой из оружия SSG-08 и Sheriff (в Valorant), но предпочитает роль Рифлера.</p>' +
+                '<p class=\"bio-fact\">Одновременно является профессиональным футболистом и играет в молодежной сборной "Баварии".</p>' +
+                '<p>Основатель проекта Dinodrop. Заработано: 60,000$.</p>');">
                 <img src="image_488730.jpg" alt="Фото Nopidorabeme">
                 <h3>Nopidorabeme</h3>
                 <p>Никита Жопынский</p>
                 <div class="role">CAPTAIN</div>
             </div>
 
-            <div class="player-card">
+            <div class="player-card" onclick="openModal('ronik', 'Станислав Кириченко', 'Rifler', 'image_487ce9.jpg', 
+                '<p>Станислав — один из самых агрессивных стрелков в команде. Обладает высоким уровнем индивидуального мастерства и невероятной реакцией. Готов принять любой бой. Его задача — пробивать защиту противника и создавать пространство для AWP.</p>' +
+                '<p class=\"bio-achievement\">Обладатель кубка "Золотое стоящее дерево".</p>' +
+                '<p class=\"bio-fact\">Талант, который играл на профессиональном уровне с пингом более 1000 и никогда не жаловался. После переезда в новую квартиру сразу вышел на тир-1 уровень.</p>' +
+                '<p>Очень хороший игрок DOTA 2 (имеет 10200 MMR), но предпочитает свою карьеру именно в CS2.</p>' +
+                '<p>Заработано: 148,880$.</p>');">
                 <img src="image_487ce9.jpg" alt="Фото ronik">
                 <h3>ronik</h3>
                 <p>Станислав Кириченко</p>
                 <div class="role">Rifler</div>
             </div>
 
-            <div class="player-card">
+            <div class="player-card" onclick="openModal('danich', 'Даниил Станика', 'Rifler', 'IMG_20230620_123258_260.webp', 
+                '<p>Даниил — очень серьезный и дисциплинированный игрок. Никогда не пошутит и не даст ложной информации в игре. Универсальный стрелок, способный закрыть любую позицию.</p>' +
+                '<p class=\"bio-achievement\">Обладатель кубка "Шоколадный Грыня".</p>' +
+                '<p>Бывший киберспортсмен по игре Vimeworld.</p>' +
+                '<p class=\"bio-fact\">Известен как "сын голопристанского киберспорта". Имеет очень высокое ELO на Faceit.</p>' +
+                '<p>Его стабильность позволяет команде полагаться на него в самых сложных ситуациях.</p>');">
                 <img src="IMG_20230620_123258_260.webp" alt="Фото danich">
                 <h3>danich</h3>
                 <p>Даниил Станика</p>
                 <div class="role">Rifler</div>
             </div>
 
-            <div class="player-card">
+            <div class="player-card" onclick="openModal('kunimen', 'Егор Белявский', 'Rifler', 'image_488389.png', 
+                '<p>Егор — универсальный и хороший игрок во всех играх. Часто отвечает за контроль мида и неожиданные атаки. Его непредсказуемый стиль игры часто застает противников врасплох.</p>' +
+                '<p class=\"bio-achievement\">Выиграл кубок "Белое одеяло" по дисциплине Dota 2.</p>' +
+                '<p>Имеет высокое ELO на Faceit. Бывший киберспортсмен по Dota 2.</p>' +
+                '<p class=\"bio-fact\">Ранее был игроком AWP в CS:GO.</p>');">
                 <img src="image_488389.png" alt="Фото kunimen">
                 <h3>kunimen</h3>
                 <p>Егор Белявский</p>
                 <div class="role">Rifler</div>
             </div>
 
-            <div class="player-card">
+            <div class="player-card" onclick="openModal('valerapickingass', 'Валерий Вжопековыряется', 'AWP', 'image_488389.png', 
+                '<p>Валерий — основной снайпер команды и Прородитель гладковского киберспорта.</p>' +
+                '<p class=\"bio-fact\">Является сыном бывшего игрока старого состава Gladkovka Team — "Виталик Метелык".</p>' +
+                '<p>Его AWP — самое точное оружие в арсенале Gladkovka Team. Именно он закрывает длинные дистанции и сдерживает пуши противника, обеспечивая надежную защиту.</p>' +
+                '<p>Легенда гладковской про-сцены и очень хороший игрок из AWP.</p>');">
                 <img src="image_488389.png" alt="Фото valerapickingass">
                 <h3>valerapickingass</h3>
                 <p>Валера Вжопековыряется</p>
@@ -406,7 +423,61 @@
 
     <footer>
         <p>&copy; 2025 Gladkovka Team. All rights reserved. | Создано с любовью к киберспорту.</p>
-        </footer>
+    </footer>
+
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-avatar-container">
+                <img id="modal-avatar-img" class="modal-avatar" src="" alt="Аватар игрока">
+            </div>
+            <div class="modal-info">
+                <h3 id="modal-nickname"></h3>
+                <p class="full-name" id="modal-fullname"></p>
+                <p class="role-modal" id="modal-role"></p>
+                <div class="bio" id="modal-bio"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalNickname = document.getElementById('modal-nickname');
+        const modalFullname = document.getElementById('modal-fullname');
+        const modalRole = document.getElementById('modal-role');
+        const modalAvatarImg = document.getElementById('modal-avatar-img');
+        const modalBio = document.getElementById('modal-bio');
+
+        /**
+         * Открывает модальное окно с информацией об игроке.
+         */
+        function openModal(nickname, fullname, role, image, bioHTML) {
+            modalNickname.textContent = nickname;
+            modalFullname.textContent = fullname;
+            modalRole.textContent = role;
+            modalAvatarImg.src = image;
+            modalBio.innerHTML = bioHTML;
+            
+            modal.style.display = 'flex'; 
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        /**
+         * Закрывает модальное окно.
+         */
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Закрывает модальное окно при клике вне его
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 
 </body>
 </html>
